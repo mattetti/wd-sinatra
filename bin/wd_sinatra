@@ -19,7 +19,7 @@ class WdSinatra < Thor::Group
   end
 
   def create_config_directory
-    directory "config", "#{name}/lib"
+    directory "config", "#{name}/config"
   end
 
   def create_bin_directory

@@ -113,7 +113,7 @@ module WDSinatra
       # Using the :production env would wrap errors instead of displaying them
       # like in dev mode
       set :environment, RACK_ENV
-      set :root, ROOT
+      set :root, root_path
       set :app_file, __FILE__
       set :public_folder, File.join(root_path, "public")
       # Checks on static files before dispatching calls
