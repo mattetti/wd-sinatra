@@ -7,19 +7,6 @@ Weasel-Diesel Sinatra app gem, allowing you to generate/update sinatra apps usin
 
     $ gem install 'wd_sinatra'
 
-
-Add this line to your application's Gemfile:
-
-    gem 'wd-sinatra'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install wd-sinatra
-
 ## Usage
 
 ### App generation
@@ -83,6 +70,15 @@ TODO
 ## Using an ORM
 
 TODO
+
+## Update
+
+To update your app, just update your gem dependency on `wd_sinatra`, you
+can also compare the difference between your app and a freshly generated
+app by trying to generate a new app named the same as your old app.
+The generator will detect conflicts and let you pick an action (diff,
+overwrite, ignore...)
+
 
 ## Contributing
 
