@@ -15,7 +15,7 @@ module WDSinatra
     def server(root_path)
       @root = root_path
       unless @booted
-        console
+        console(root_path)
         load_apis
         load_middleware
         set_sinatra_routes
