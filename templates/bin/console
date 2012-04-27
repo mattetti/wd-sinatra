@@ -2,6 +2,6 @@
 require 'irb'
 require 'rubygems'
 require 'wd_sinatra/app_loader'
-root = File.expand_path(File.dirname(__FILE__))
+root = File.expand_path('..', File.dirname(__FILE__))
 WDSinatra::AppLoader.console(root)
 IRB.start(__FILE__)

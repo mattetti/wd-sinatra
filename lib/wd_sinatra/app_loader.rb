@@ -16,7 +16,6 @@ module WDSinatra
       @root = root_path
       unless @booted
         console(root_path)
-        load_apis
         load_middleware
         set_sinatra_routes
         set_sinatra_settings
@@ -33,6 +32,7 @@ module WDSinatra
         load_lib_dependencies
         #TODO: datastore_setup
         load_models
+        load_apis
         @booted =  true
       end
     end
