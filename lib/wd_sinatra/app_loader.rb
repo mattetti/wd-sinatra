@@ -73,10 +73,11 @@ module WDSinatra
       require File.join(root_path, 'config', 'app')
     end
 
-    def set_loadpath
-      $: << root_path
-      $: << File.join(root_path, 'lib')
-      $: << File.join(root_path, 'models')
+    def set_loadpath(root=nil)
+      root ||= root_path
+      $: << root
+      $: << File.join(root, 'lib')
+      $: << File.join(root, 'models')
     end
 
     def load_lib_dependencies
