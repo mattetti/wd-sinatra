@@ -61,15 +61,74 @@ TODO
 
 ## Writing a service
 
-TODO
+TODO see Weasel Diesel for now.
 
 ## Config and hooks
 
-TODO
+### app.rb
+
+The `config/app.rb` file is being required after the environment is set
+but before the models are loaded. This is the perfect place to load
+custom libraries and set your datastore.
+
+This is where you will for instance load ActiveRecord and set your DB
+connection.
+
+### Environments
+
+The files in `config/environments` can
+be used to set environment specific configuration or other.
+If you add a new environment such as staging, you can add a `staging.rb`
+file in the environments folder that will only get required when running
+in this env mode.
+Whatever the environment is, the `config/environments/default.rb` is
+being required before the specific env file.
+
+### Hooks
+
+The request dispatcher offers 3 hooks which you can see demonstrated in
+`config/hooks.rb`.
+
+* `params_preprocessor_hook(params)`
+* `params_postprocessor_hook(params)`
+* `pre_dispatch_hook`
+
+The two first hooks are used to process the params and when implemented
+are expected to return the params that will be used in the request.
+
+The `pre_dispatch_hook` is called just before the request is dispatched
+to the service implementation. This is where you might want to implement
+an authentication verification system for instance.
+
+These 3 hooks have access to the entire request context, including the
+`service` being called. You can use the service `extra` option to set
+some custom settings that can then be used in this pre dispatch hook.
+
+In the default generated application, a body parser is provided to parse
+JSON requests when the HTTP verb is PUT, POST or DELETE. The json parser is set by default to use the `JSON` module but you might want to change it to use Yajl for instance.
+To do that, edit the `config/hooks.rb` file and change the following:
+
+```ruby
+BodyParser.json_parser = JSON
+```
+
+to:
+
+```ruby
+BodyParser.json_parser = Yajl::Parser
+```
+
+Of course, you'll need to require `Yajl` first and add it to your
+Gemfile if you want to use Bundler.
+
+
 
 ## Using an ORM
 
-TODO
+TODO: see https://github.com/mattetti/sinatra-web-api-example/  for now
+for an example of setting up ActiveRecord.
+Eventually the generator will take an option to generate an AR, DM or
+other ORM template.
 
 ## Update
 

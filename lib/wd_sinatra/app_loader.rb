@@ -27,10 +27,10 @@ module WDSinatra
       @root = root_path
       unless @booted
         set_env
-        load_environment
         set_loadpath
+        load_environment
         load_lib_dependencies
-        #TODO: datastore_setup
+        load_app_config
         load_models
         load_apis
         @booted =  true
@@ -70,7 +70,6 @@ module WDSinatra
         Object.const_set(:LOGGER, Logger.new($stdout))
       end
       LOGGER.debug(debug_msg) if debug_msg
-      require File.join(root_path, 'config', 'app')
     end
 
     def set_loadpath(root=nil)
@@ -86,6 +85,10 @@ module WDSinatra
       require 'sinatra'
       require 'wd_sinatra/sinatra_ext'
       # TODO: hook to custom app dependencies
+    end
+
+    def load_app_config
+      require File.join(root_path, 'config', 'app')
     end
 
     def load_models
@@ -110,20 +113,7 @@ module WDSinatra
     end
 
     def set_sinatra_settings
-      # Using the :production env would wrap errors instead of displaying them
-      # like in dev mode
-      set :environment, RACK_ENV
-      set :root, root_path
-      set :app_file, __FILE__
-      set :public_folder, File.join(root_path, "public")
-      # Checks on static files before dispatching calls
-      enable :static
-      # enable rack session
-      enable :session
-      set :raise_errors, false
-      # enable that option to run by calling this file automatically (without using the config.ru file)
-      # enable :run
-      use Rack::ContentLength
+      require File.join(root_path, 'config', 'sinatra_config')
     end
 
   end

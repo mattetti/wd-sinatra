@@ -64,7 +64,10 @@ class WeaselDiesel
           processed_params.delete('splat')
           processed_params.delete('captures')
         end
-        @params = ParamsVerification.validate!((processed_params || app.params), service.defined_params)
+        @params = (processed_params || app.params)
+        @params = params_preprocessor_hook(@params) if self.respond_to?(:params_preprocessor_hook)
+        @params = ParamsVerification.validate!(@params, service.defined_params)
+        @params = params_postrocessor_hook(@params) if self.respond_to?(:params_postprocessor_hook)
       rescue Exception => e
         LOGGER.error e.message
         LOGGER.error "passed params: #{app.params.inspect}"

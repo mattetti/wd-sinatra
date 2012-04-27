@@ -27,4 +27,6 @@ task :environment do
 end
 
 WDSinatra::AppLoader.set_loadpath(root)
-load File.join('tasks', 'doc.rake')
+Dir.glob("lib/tasks/**/*.rake").each do |task_file|
+  load task_file
+end
