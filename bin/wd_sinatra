@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+require "rubygems"
+require "thor/group"
+
+class WdSinatra < Thor::Group
+  include Thor::Actions
+
+  # Define arguments and options
+  # argument :type, :type => :string, :desc => "The type to generate, app by default"
+  argument :name, :type => :string, :desc => "The name of the app to generate"
+  class_option :test_framework, :default => :test_unit
+
+  def self.source_root
+    File.expand_path(File.join('..', 'templates'), File.dirname(__FILE__))
+  end
+
+  def create_lib_directory
+    directory "lib", "#{name}/lib"
+  end
+
+  def create_config_directory
+    directory "config", "#{name}/lib"
+  end
+
+  def create_bin_directory
+    directory "bin", "#{name}/bin"
+    chmod "#{name}/bin/console", 0755
+  end
+
+  def create_public_directory
+    directory "public", "#{name}/public"
+  end
+
+  def create_api_directory
+    directory "api", "#{name}/api"
+  end
+
+  def create_files
+    copy_file "Rakefile", "#{name}/Rakefile"
+    copy_file "Gemfile", "#{name}/Gemfile"
+    copy_file "config.ru", "#{name}/config.ru"
+    copy_file "Guardfile", "#{name}/Guardfile"
+  end
+
+end
+
+WdSinatra.start
