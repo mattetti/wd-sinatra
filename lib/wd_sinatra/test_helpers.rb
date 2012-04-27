@@ -8,7 +8,7 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'bootloader')
 
 require 'minitest/autorun'
 
-ENV['NO_ROUTE_PRINT'] = 'true'
+ENV['NO_PRINT_ROUTES'] = 'true'
 Bootloader.start
 WeaselDiesel.send(:include, JSONResponseVerification)
 

@@ -97,7 +97,9 @@ class WeaselDiesel
   def load_sinatra_route
     service     = self
     upcase_verb = service.verb.to_s.upcase
-    LOGGER.info "Available endpoint: #{self.http_verb.upcase} /#{self.url}" unless ENV['NO_ROUTE_PRINT']
+    unless ENV['DONT_PRINT_ROUTES']
+      LOGGER.info "Available endpoint: #{self.http_verb.upcase} /#{self.url}" 
+    end
     raise "DSL is missing the implementation block" unless self.handler && self.handler.respond_to?(:service_dispatch)
 
     # Define the route directly to save some object allocations on the critical path
