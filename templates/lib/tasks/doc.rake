@@ -4,6 +4,7 @@ namespace :doc do
     ENV['DONT_CONNECT'] = 'true'
     ENV['DONT_PRINT_ROUTES'] = 'true'
     require 'wd_sinatra/app_loader'
+    require 'launchy'
     root = File.expand_path("../..", File.dirname(__FILE__))
     WDSinatra::AppLoader.server(root)
     LOGGER.level = Logger::FATAL
@@ -14,7 +15,7 @@ namespace :doc do
     copy_assets(destination)
     File.open("#{destination}/index.html", "w"){|f| f << template.result(binding)}
     puts "Documentation available there: #{destination}/index.html"
-    `open #{destination}/index.html` if RUBY_PLATFORM =~ /darwin/ && !ENV['DONT_OPEN']
+    Launchy.open "#{destination}/index.html" unless ENV['DONT_OPEN']
   end
 
   def template
