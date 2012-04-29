@@ -3,7 +3,7 @@
 
 guard 'puma' do
   watch('Gemfile.lock')
-  watch(%r{^config|lib/.*})
+  watch(%r{^config|lib|api/.*})
 end
 
 guard 'minitest', :test_file_patterns => '*_test.rb' do
