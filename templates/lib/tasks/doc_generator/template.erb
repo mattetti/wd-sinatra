@@ -72,7 +72,7 @@
                     <% api.send(rule_meth).each do |rule| %> 
                       <li>
                         <span class='label notice'><%= rule.name %></span> of type <span class='label success'><%= rule.options[:type] || 'String' %></span>
-                        <% if desc = api.doc.params_doc[rule.name.to_sym] %>
+                        <% if desc = (api.doc.params_doc[rule.name.to_sym] || rule.options[:doc]) %>
                            <%= desc %>&nbsp;
                         <% end %>
                         <% if options = rule.options[:options] %>
