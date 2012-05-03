@@ -1,5 +1,11 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.2.0
+
+* moved `hooks.rb` and `app.rb` to `/lib`
+
+* Automatically load the hooks in the loader if available
+
 
 ## 0.1.0
 

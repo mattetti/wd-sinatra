@@ -19,6 +19,7 @@ module WDSinatra
         load_middleware
         set_sinatra_routes
         set_sinatra_settings
+        load_hooks
       end
     end
 
@@ -30,7 +31,7 @@ module WDSinatra
         set_loadpath
         load_environment
         load_lib_dependencies
-        load_app_config
+        load_app_file
         load_models
         load_apis
         @booted =  true
@@ -84,11 +85,10 @@ module WDSinatra
       require 'weasel_diesel'
       require 'sinatra'
       require 'wd_sinatra/sinatra_ext'
-      # TODO: hook to custom app dependencies
     end
 
-    def load_app_config
-      require File.join(root_path, 'config', 'app')
+    def load_app_file
+      require File.join(root_path, 'lib', 'app')
     end
 
     def load_models
@@ -114,6 +114,13 @@ module WDSinatra
 
     def set_sinatra_settings
       require File.join(root_path, 'config', 'sinatra_config')
+    end
+
+    def load_hooks
+      hooks_file = File.join(root_path, 'lib', 'hooks.rb')
+      if File.exist?(hooks_file)
+        require 'hooks'
+      end
     end
 
   end

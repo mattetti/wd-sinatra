@@ -4,9 +4,11 @@ require 'rack'
 require 'rack/test'
 require 'json'
 require 'weasel_diesel'
+require 'wd_sinatra'
 require 'json_response_verification'
 
 WeaselDiesel.send(:include, JSONResponseVerification)
+ENV['DONT_PRINT_ROUTES'] = 'true'
 
 class Requester
   include ::Rack::Test::Methods
