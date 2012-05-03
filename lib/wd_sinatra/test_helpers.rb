@@ -3,16 +3,10 @@ require 'test/unit'
 require 'rack'
 require 'rack/test'
 require 'json'
+require 'weasel_diesel'
 require 'json_response_verification'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'bootloader')
 
-require 'minitest/autorun'
-
-ENV['NO_PRINT_ROUTES'] = 'true'
-Bootloader.start
 WeaselDiesel.send(:include, JSONResponseVerification)
-
-ActiveRecord::Base.logger = nil
 
 class Requester
   include ::Rack::Test::Methods
@@ -26,8 +20,12 @@ module TestApi
   module_function
 
   URL_PLACEHOLDER   = /\/*(:[a-z A-Z _]+)\/*/
-  INTERNAL_X_HEADER = AuthHelpers::INTERNAL_X_HEADER[/HTTP_(.*)/, 1] # strip the header marker added by Rack
-  MOBILE_X_HEADER   = AuthHelpers::MOBILE_X_HEADER[/HTTP_(.*)/, 1]   # strip the header marker added by Rack
+  if defined?(AuthHelpers::INTERNAL_X_HEADER)
+    INTERNAL_X_HEADER = AuthHelpers::INTERNAL_X_HEADER[/HTTP_(.*)/, 1] # strip the header marker added by Rack
+  end
+  if defined?(AuthHelpers::MOBILE_X_HEADER)
+    MOBILE_X_HEADER   = AuthHelpers::MOBILE_X_HEADER[/HTTP_(.*)/, 1]   # strip the header marker added by Rack
+  end
 
   def request(verb, uri, params={}, headers=nil)
     params ||= {}
@@ -177,28 +175,4 @@ class JsonWrapperResponse
   end
 
   def_delegators :rest_response, :code, :headers, :raw_headers, :cookies, :status, :errors
-end
-
-
-# Custom assertions
-def assert_api_response(response=nil, message=nil)
-  response ||= TestApi.json_response
-  print response.rest_response.errors if response.status === 500
-  assert response.success?, message || ["Body: #{response.rest_response.body}", "Errors: #{response.errors}", "Status code: #{response.status}"].join("\n")
-  service = WSList.all.find{|s| s.verb == response.verb && s.url == response.uri[1..-1]}
-  raise "Service for (#{response.verb.upcase} #{response.uri[1..-1]}) not found" unless service
-  unless service.response.nodes.empty?
-    assert response.body.is_a?(Hash), "Invalid JSON response:\n#{response.body}"
-    valid, errors = service.validate_hash_response(response.body)
-    assert valid, errors.join(" & ") || message
-  end
-end
-
-def assert_api_response_with_redirection(redirection_url=nil)
-  response = TestApi.json_response
-  print response.rest_response.errors if response.status === 500
-  assert response.status == 302, "Redirection expect, but got #{response.status}"
-  if redirection_url
-    assert response.headers["location"], redirection_url
-  end
 end
