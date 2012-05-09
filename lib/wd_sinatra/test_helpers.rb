@@ -4,7 +4,7 @@ require 'rack'
 require 'rack/test'
 require 'json'
 require 'weasel_diesel'
-require 'wd_sinatra'
+require 'wd_sinatra/app_loader'
 require 'json_response_verification'
 
 WeaselDiesel.send(:include, JSONResponseVerification)
@@ -21,12 +21,26 @@ end
 module TestApi
   module_function
 
-  URL_PLACEHOLDER   = /\/*(:[a-z A-Z _]+)\/*/
-  if defined?(AuthHelpers::INTERNAL_X_HEADER)
-    INTERNAL_X_HEADER = AuthHelpers::INTERNAL_X_HEADER[/HTTP_(.*)/, 1] # strip the header marker added by Rack
+  URL_PLACEHOLDER = /\/*(:[a-z A-Z _]+)\/*/
+
+  # Sets the X header name to make auth'd requests.
+  def auth_request_x_header=(val)
+    @auth_request_x_header = val
   end
-  if defined?(AuthHelpers::MOBILE_X_HEADER)
-    MOBILE_X_HEADER   = AuthHelpers::MOBILE_X_HEADER[/HTTP_(.*)/, 1]   # strip the header marker added by Rack
+
+  # getter for the auth X header
+  def auth_request_x_header
+    @auth_request_x_header
+  end
+
+  # Sets the X header name for mobile auth'd requests
+  def mobile_request_x_header=(val)
+    @mobile_request_x_header = val
+  end
+
+  # getter for the mobile X header
+  def mobile_request_x_header
+    @mobile_request_x_header
   end
 
   def request(verb, uri, params={}, headers=nil)
@@ -123,16 +137,15 @@ module TestApi
     @json_response.rest_response if @json_response
   end
 
+  # Define this method in your test helpers
   def valid_internal_api_headers(headers)
-    custom_headers = {INTERNAL_X_HEADER => AuthHelpers::ALLOWED_API_KEYS[0]}
-    custom_headers.merge!(headers) if headers
-    custom_headers
+    raise 'NotImplemented, You need to implement this method yourself'
   end
 
+  # Define this method in your test helpers
+
   def mobile_headers(headers)
-    custom_headers = {MOBILE_X_HEADER => @account ? Base64.urlsafe_encode64(@account.mobile_token) : nil}
-    custom_headers.merge!(headers) if headers
-    custom_headers
+    raise 'NotImplemented, You need to implement this method yourself'
   end
 
 end

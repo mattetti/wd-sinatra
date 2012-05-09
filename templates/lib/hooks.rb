@@ -72,3 +72,4 @@ module WDSinatraHooks
 end
 
 Sinatra::Helpers.send(:include, WDSinatraHooks)
+WeaselDiesel::RequestHandler.send(:include, WDSinatraHooks)

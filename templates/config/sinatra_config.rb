@@ -13,6 +13,6 @@ use Rack::ContentLength
 
 # Store the caught exception in the rack env so it can be used
 # by 3rd party apps like airbrake.
-error(Sinatra::Base::Exception) do |exception|
+error(::Exception) do |exception|
   @env['rack.exception'] = exception
 end
