@@ -88,7 +88,10 @@ module WDSinatra
     end
 
     def load_app_file
-      require File.join(root_path, 'lib', 'app')
+      app_file = File.join(root_path, 'lib', 'app')
+      if File.exist?(app_file)
+        require app_file
+      end
     end
 
     def load_models
