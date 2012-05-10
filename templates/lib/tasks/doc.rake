@@ -24,7 +24,7 @@ namespace :doc do
 
   def resources
     require 'pathname'
-    @resources ||= Pathname.new(File.join(File.dirname(__FILE__), '..', 'doc_generator'))
+    @resources ||= Pathname.new(File.join(File.dirname(__FILE__), 'doc_generator'))
   end
 
   def copy_assets(destination)
