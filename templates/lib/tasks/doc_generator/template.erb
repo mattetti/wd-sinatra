@@ -17,6 +17,10 @@
       body {
         padding-top: 60px;
       }
+      div.api {
+        padding-top: 60px;
+        margin-top: -60px;
+      }
     </style>
 
     <!-- Le fav and touch icons -->
@@ -57,7 +61,7 @@
         </div>
 
         <% WSList.all.each do |api| %>
-          <div class="" id="<%= "raw-#{api.verb}-#{api.url}" %>">
+          <div class="api" id="<%= "raw-#{api.verb}-#{api.url}" %>">
             <div>
               <h2><%= api.verb.upcase %> <%= '[SSL]' if api.ssl %> /<%= api.url %></h2>
               <% if api.auth_required %>
