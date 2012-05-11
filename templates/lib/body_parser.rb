@@ -7,7 +7,7 @@ module BodyParser
   def parse(params, body, content_type)
     case content_type
     when JSON_TYPE 
-      params.merge(json_parser.parse(body.string))
+      params.merge(json_parser.parse(body.read))
     else
       params
     end
