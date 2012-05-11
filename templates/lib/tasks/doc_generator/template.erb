@@ -68,6 +68,13 @@
                 <span class='label important'>Authentication required</span>
               <% end %>
               <%= "<p>#{api.doc.desc}</p>" if api.doc.desc %>
+              <% unless api.doc.examples.empty? %>
+                <ul>
+                  <% api.doc.examples.each do |example| %>
+                    <li><code><%= example %></code></li>
+                  <%  end %>
+                </ul>
+              <%  end %>
               <%# TODO support for namespaced params %>
               <% [["Required", :required_rules], ["Optional", :optional_rules]].each do |label,rule_meth| %>
                 <% unless api.send(rule_meth).empty? %>
