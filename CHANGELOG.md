@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.2.1
+
+* fixed the content type on the param verification error message
+
 ## 0.2.0
 
 * moved `hooks.rb` and `app.rb` to `/lib`
