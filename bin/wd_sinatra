@@ -35,6 +35,10 @@ class WdSinatra < Thor::Group
     directory "api", "#{name}/api"
   end
 
+  def create_test_directory
+    directory "test", "#{name}/test"
+  end
+
   def create_files
     copy_file "Rakefile", "#{name}/Rakefile"
     copy_file "Gemfile", "#{name}/Gemfile"
