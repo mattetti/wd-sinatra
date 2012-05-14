@@ -57,8 +57,69 @@ To generate documentation for the APIs you created in the api folder.
 
 ### Testing
 
-TODO
-see 'wd_sinatra/test_helpers'
+Helpers to test your apps are provided. When you generate your first
+app, you will see a first example using minitest:
+
+```ruby
+class HelloWorldIntegrationTest < MiniTest::Unit::TestCase
+
+  def test_default_response
+    TestApi.get "/hello_world"
+    assert_api_response
+    assert_equal "Hello World", TestApi.json_response['message']
+    assert Time.parse(TestApi.json_response['at']) < Time.now
+  end
+
+  def test_customized_response
+    TestApi.get "/hello_world", :name => "Matt"
+    assert_api_response
+    assert_equal "Hello Matt", TestApi.json_response['message']
+    assert Time.parse(TestApi.json_response['at']) < Time.now
+  end
+
+end
+```
+
+The `TestApi` module is used to call a service. The call will go through
+the entire app stack including middleware.
+You can then look at the response object via the `TestApi` module using
+one of the many provided methods such as `last_response`,
+`json_response` and then methods on `last_response` provided by [Rack](http://rack.rubyforge.org/doc/Rack/MockResponse.html):
+
+* status
+* headers
+* body
+* errors
+
+The `TestApi` interface allows you to dispatch all the calls, and to
+send custom parameters and headers, set cookies and everything you need to do proper integration
+tests.
+
+Because we opted to describe our responses, and this framework is based
+on the concept that we want to communicate about our apis, it is
+critical to test the service responses. For that, a JSON response helper
+is provided (testunit/minitest only for now) so you can easily check
+that the structure of the response matches the description.
+
+This is what the `assert_api_response` helper does.
+
+This helper is to be used after you dispatched an API call.
+The last response is being analyzed and the JSON structure should match
+the description provided in the service.
+Note that this helper doesn't check the content of the structure, that
+is something you need to do yourself with custom tests as shown in the
+example.
+
+### Tips
+
+When dispatching a test api call using an url with a placeholder such as
+`/people/:id', you need to pass the id as a param and the url will be
+properly composed:
+
+```ruby
+TestApi.post '/people/:id', :id => 123
+```
+
 
 ## Writing a service
 
