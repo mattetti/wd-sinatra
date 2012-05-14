@@ -20,4 +20,5 @@ if ENV['RACK_ENV'] != "production"
   # gem "guard-puma"
   # gem "guard-minitest"
   gem "rake"
+  gem "launchy"
 end
