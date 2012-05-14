@@ -36,9 +36,9 @@ module WDSinatraHooks
   # exception message sent back as a json.
   #
   # @param [Exception] exception The exception that was rescued.
-  # def pre_dispatch_hook(exception)
+  # def params_exception_handler(exception)
   #   # example implementation:
-  #   # halt 400, {'Content-Type' => 'application/json'}, {:error => e.message}.to_json
+  #   # halt 400, {'Content-Type' => 'application/json'}, {:error => exception.message}.to_json
   # end
 
   # This hook gets called after the params are being verified.

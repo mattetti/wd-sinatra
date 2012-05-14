@@ -1,5 +1,15 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.2.3
+
+* Fixed the example of the `params_exception_handler` hook added in the
+  generated `hooks.rb` file.
+
+## 0.2.2
+
+* Added a `params_exception_handler` hook to customize the rescue of an
+  exception being raised in the params processing phase.
+
 ## 0.2.1
 
 * fixed the content type on the param verification error message
