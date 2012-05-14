@@ -58,10 +58,11 @@ To generate documentation for the APIs you created in the api folder.
 ### Testing
 
 TODO
+see 'wd_sinatra/test_helpers'
 
 ## Writing a service
 
-TODO see Weasel Diesel for now.
+TODO see Weasel Diesel for now and the generated service example.
 
 ## Config and hooks
 
@@ -86,21 +87,26 @@ being required before the specific env file.
 
 ### Hooks
 
-The request dispatcher offers 3 hooks which you can see demonstrated in
+The request dispatcher offers a fews hooks which you can see demonstrated in
 `config/hooks.rb`.
 
 * `params_preprocessor_hook(params)`
 * `params_postprocessor_hook(params)`
+* `params_exception_handler(exception)`
 * `pre_dispatch_hook`
 
 The two first hooks are used to process the params and when implemented
 are expected to return the params that will be used in the request.
 
+The `params_exception_handler` hook allows you to overwrite the default
+exception handling happening when an exception is raised while handling
+the params (pre procssing, validation or post processing).
+
 The `pre_dispatch_hook` is called just before the request is dispatched
 to the service implementation. This is where you might want to implement
 an authentication verification system for instance.
 
-These 3 hooks have access to the entire request context, including the
+These hooks have access to the entire request context, including the
 `service` being called. You can use the service `extra` option to set
 some custom settings that can then be used in this pre dispatch hook.
 

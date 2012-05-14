@@ -29,6 +29,18 @@ module WDSinatraHooks
     end
   end
 
+
+  # This hooks gets called when an exception is raised while preprocessing the params,
+  # verifying them or post processing them.
+  # If this method isn't defined, the default handler is used (a 400 error is returned with the 
+  # exception message sent back as a json.
+  #
+  # @param [Exception] exception The exception that was rescued.
+  # def pre_dispatch_hook(exception)
+  #   # example implementation:
+  #   # halt 400, {'Content-Type' => 'application/json'}, {:error => e.message}.to_json
+  # end
+
   # This hook gets called after the params are being verified.
   # You can use this hook to modify the params before sending them to
   # your service.

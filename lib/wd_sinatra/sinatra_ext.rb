@@ -71,7 +71,11 @@ class WeaselDiesel
       rescue Exception => e
         LOGGER.error e.message
         LOGGER.error "passed params: #{app.params.inspect}"
-        halt 400, {'Content-Type' => 'application/json'}, {:error => e.message}.to_json
+        if self.respond_to?(:params_exception_handler)
+          params_exception_handler(e)
+        else
+          halt 400, {'Content-Type' => 'application/json'}, {:error => e.message}.to_json
+        end
       end
 
       # Define WeaselDiesel::RequestHandler#authorization_check in your app if
