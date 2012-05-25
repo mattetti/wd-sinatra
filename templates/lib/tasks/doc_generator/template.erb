@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Weasel Diesel - API documentation</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -75,7 +75,32 @@
                   <%  end %>
                 </ul>
               <%  end %>
-              <%# TODO support for namespaced params %>
+
+              <h3>Input parameters description</h3>
+              <%# TODO support for nested namespaced params %>
+              <% api.params.namespaced_params.each do |params| %>
+                <div class='well'>
+                  <h4>Namespace: <span style='font-style: italic'><%= params.space_name %></span></h4>
+                  <div style='padding-left: 40px'>
+                <% [["Required", :list_required], ["Optional", :list_optional]].each do |label,rule_meth| %>
+                  <% unless params.send(rule_meth).empty? %>
+                    <h4><%= label %> Params</h4>
+                     <ul>
+                      <% params.send(rule_meth).each do |rule| %> 
+                         <li>
+                          <span class='label notice'><%= rule.name %></span> of type <span class='label success'><%= rule.options[:type] || 'String' %></span>
+                          <% if desc = (api.doc.params_doc[rule.name.to_sym] || rule.options[:doc]) %>
+                             <%= desc %>&nbsp;
+                          <% end %>
+                          </li>
+                      <% end %>
+                    </ul>
+                    <% end %>
+                  <% end %>
+                </div>
+                </div>
+              <% end %>
+
               <% [["Required", :required_rules], ["Optional", :optional_rules]].each do |label,rule_meth| %>
                 <% unless api.send(rule_meth).empty? %>
                   <h3><%= label %> Params</h3>
@@ -97,20 +122,23 @@
                     </ul>
                   <% end %>
                 <% end %>
+
               </div>
 
               <div>
               <% if api.response.nodes.any? %>
                 <h3>Response description</h3>
-                <% api.response.elements.each do |el| %>
-                    <%= el.to_html %>
-                <% end %>
-                <% api.response.arrays.each do |arr| %>
-                  <%= arr.to_html %>
-                <% end %>
+                <div class='well'>
+                  <% api.response.elements.each do |el| %>
+                      <%= el.to_html %>
+                  <% end %>
+                  <% api.response.arrays.each do |arr| %>
+                    <%= arr.to_html %>
+                  <% end %>
+                </div>
               </ul>
               <h4>Response example</h4>
-              <p><code><%= api.response.to_json %></code></p>
+              <div class='well'><code><%= api.response.to_json %></code></div>
             <% end %>
           </div>
 
