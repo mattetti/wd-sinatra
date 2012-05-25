@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.2.4
+
+* Fixed the documentation template to support namespaced input params.
+
 ## 0.2.3
 
 * Fixed the example of the `params_exception_handler` hook added in the
