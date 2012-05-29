@@ -58,10 +58,10 @@ module TestApi
         end
     end
     
-    request = Requester.new
-    yield request if block_given?
-    headers.each {|name, value| request.header(name, value) } if headers
-    response = request.send(verb, uri, params)
+    @request = Requester.new
+    yield @request if block_given?
+    headers.each {|name, value| @request.header(name, value) } if headers
+    response = @request.send(verb, uri, params)
     @json_response = JsonWrapperResponse.new(response, :verb => verb, :uri => service_uri)
   end
 
@@ -131,6 +131,10 @@ module TestApi
 
   def json_response
     @json_response
+  end
+
+  def last_request
+    @request
   end
 
   def last_response
