@@ -92,6 +92,7 @@ module WDSinatra
     end
 
     def load_models
+      return if ENV['DONT_LOAD_MODELS']
       Dir.glob(File.join(root_path, "models", "**", "*.rb")).each do |model|
         require model
       end
