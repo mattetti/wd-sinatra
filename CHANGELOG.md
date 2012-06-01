@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.2.5
+
+* added suport for `ENV['DONT_LOAD_MODELS']` to avoid loading models.
+
 ## 0.2.4
 
 * Fixed the documentation template to support namespaced input params.
