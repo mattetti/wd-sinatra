@@ -1,8 +1,12 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.2.6
+
+* Added a few basic disabled settings for newrelic and airbrake.
+
 ## 0.2.5
 
-* added suport for `ENV['DONT_LOAD_MODELS']` to avoid loading models.
+* added support for `ENV['DONT_LOAD_MODELS']` to avoid loading models.
 
 ## 0.2.4
 
