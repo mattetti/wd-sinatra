@@ -85,3 +85,7 @@ end
 
 Sinatra::Helpers.send(:include, WDSinatraHooks)
 WeaselDiesel::RequestHandler.send(:include, WDSinatraHooks)
+
+# NEW RELIC HOOKS
+# uncomment if you want to use newrelic (you also need the wd_newrelic_rpm gem)
+# require 'newrelic_instrumentation'

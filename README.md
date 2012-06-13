@@ -49,6 +49,16 @@ like the most.
 The console mode is like the server mode but without the server only
 concerns such as the sinatra routes config and Rack middleware.
 
+If your users also want `script/console`, add the file, chmod +x it and
+use the following code:
+
+```bash
+#!/bin/bash
+# Run bin/console for those who like the old Rails way.
+abspath=$(cd ${0%/*} && echo $PWD/${0##*/})
+$abspath/../../bin/console
+```
+
 ### Documentation generation
 
     $ rake doc:services
@@ -204,7 +214,6 @@ can also compare the difference between your app and a freshly generated
 app by trying to generate a new app named the same as your old app.
 The generator will detect conflicts and let you pick an action (diff,
 overwrite, ignore...)
-
 
 ## Contributing
 
