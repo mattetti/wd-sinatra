@@ -1,5 +1,6 @@
 ENV['RACK_ENV'] ||= 'test'
 require 'test/unit'
+require 'minitest/spec'
 require 'rack'
 require 'rack/test'
 require 'json'

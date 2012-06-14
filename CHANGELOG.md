@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.3.0
+
+* Added a service generator using thor. `$ thor :service get /foo/bar foo_bar.rb` (Thanks DrNic)
+
 ## 0.2.6
 
 * Added a few basic disabled settings for newrelic and airbrake.

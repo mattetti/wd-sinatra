@@ -42,6 +42,16 @@ While it's a nice feature to have, a lot of developers like to do that
 differently and it seems more sensitive to let them pick the way they
 like the most.
 
+
+### Generating a new service
+
+You need to have thor installed for that, you might want to add it yo
+your gemfile.
+
+    $ thor :service get /foo/bar foo_bar.rb
+
+This command will create a service and a failing test for it.
+
 ### Console
 
     $ bundle exec bin/console
@@ -129,7 +139,6 @@ properly composed:
 ```ruby
 TestApi.post '/people/:id', :id => 123
 ```
-
 
 ## Writing a service
 

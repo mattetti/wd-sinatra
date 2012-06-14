@@ -40,10 +40,9 @@ class WdSinatra < Thor::Group
   end
 
   def create_files
-    copy_file "Rakefile", "#{name}/Rakefile"
-    copy_file "Gemfile", "#{name}/Gemfile"
-    copy_file "config.ru", "#{name}/config.ru"
-    copy_file "Guardfile", "#{name}/Guardfile"
+    %W{Rakefile Gemfile config.ru Guardfile Thorfile}.each do |filename|
+      copy_file filename, "#{name}/#{filename}"
+    end
   end
 
 end
