@@ -7,12 +7,10 @@ gem "weasel_diesel"
 gem "wd_sinatra"
 # gem 'wd_newrelic_rpm', :require => 'newrelic_rpm'
 
-if RUBY_VERSION =~ /1.8/
-  gem 'backports', '2.3.0'
-  gem 'json'
-end
+gem 'backports', '2.3.0', :platform => 'ruby_18'
+gem 'json', :platform => 'ruby_18'
 
-if ENV['RACK_ENV'] != "production"
+group :development, :test do
   gem "rack-test", "0.6.1"
   # gem "foreman"
   # gem "puma"
