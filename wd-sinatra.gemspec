@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["mattaimonetti@gmail.com"]
   gem.description   = %q{Weasel-Diesel Sinatra app gem, allowing you to generate/update sinatra apps using the Weasel Diesel DSL}
   gem.summary       = %q{Weasel-Diesel Sinatra app gem, allowing you to generate/update sinatra apps using the Weasel Diesel DSL}
-  gem.homepage      = "https://github.com/mattetti/wd_sinatra"
+  gem.homepage      = "https://github.com/mattetti/wd-sinatra"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
