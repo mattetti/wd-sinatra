@@ -174,6 +174,7 @@ The request dispatcher offers a fews hooks which you can see demonstrated in
 * `params_postprocessor_hook(params)`
 * `params_exception_handler(exception)`
 * `pre_dispatch_hook`
+* `post_dispatch_hook(response)`
 
 The two first hooks are used to process the params and when implemented
 are expected to return the params that will be used in the request.
@@ -185,6 +186,9 @@ the params (pre procssing, validation or post processing).
 The `pre_dispatch_hook` is called just before the request is dispatched
 to the service implementation. This is where you might want to implement
 an authentication verification system for instance.
+
+The `post_dispatch_hook` is called, as you might have guessed it, after
+the response is dispatched but before it gets sent back to the client.
 
 These hooks have access to the entire request context, including the
 `service` being called. You can use the service `extra` option to set

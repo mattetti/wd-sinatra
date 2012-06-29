@@ -1,5 +1,10 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.3.1
+
+* Added `post_dispatch_hook`.
+* Fixed a few default settings.
+
 ## 0.3.0
 
 * Added a service generator using thor. `$ thor :service get /foo/bar foo_bar.rb` (Thanks DrNic)

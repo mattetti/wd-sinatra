@@ -78,10 +78,14 @@ class WeaselDiesel
         end
       end
 
-      # Define WeaselDiesel::RequestHandler#authorization_check in your app if
-      # you want to use an auth check.
       pre_dispatch_hook if self.respond_to?(:pre_dispatch_hook)
-      service_dispatch
+      if self.respond_to?(:post_dispatch_hook)
+        body = service_dispatch
+        post_dispatch_hook
+        body
+      else
+        service_dispatch
+      end
     end
 
     # Forwarding some methods to the underlying app object
