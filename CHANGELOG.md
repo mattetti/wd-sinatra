@@ -1,5 +1,12 @@
 # Weasel Diesel Sinatra Changelog
 
+## 0.3.2
+* Removed `post_dispatch_hook` since it doesn't work well with `halt`
+  and file responses. Use Sinatra's `after` filter instead.
+* Fixed a bug with `params_postprocessor_hook`.
+* Added a 'wd.service' entry to `env` that points to the dispatched
+  service.
+
 ## 0.3.1
 
 * Added `post_dispatch_hook`.

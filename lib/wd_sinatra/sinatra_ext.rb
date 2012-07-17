@@ -67,7 +67,7 @@ class WeaselDiesel
         @params = (processed_params || app.params)
         @params = params_preprocessor_hook(@params) if self.respond_to?(:params_preprocessor_hook)
         @params = ParamsVerification.validate!(@params, service.defined_params)
-        @params = params_postrocessor_hook(@params) if self.respond_to?(:params_postprocessor_hook)
+        @params = params_postprocessor_hook(@params) if self.respond_to?(:params_postprocessor_hook)
       rescue Exception => e
         LOGGER.error e.message
         LOGGER.error "passed params: #{app.params.inspect}"
@@ -79,13 +79,7 @@ class WeaselDiesel
       end
 
       pre_dispatch_hook if self.respond_to?(:pre_dispatch_hook)
-      if self.respond_to?(:post_dispatch_hook)
-        body = service_dispatch
-        post_dispatch_hook
-        body
-      else
-        service_dispatch
-      end
+      service_dispatch
     end
 
     # Forwarding some methods to the underlying app object
@@ -117,6 +111,7 @@ class WeaselDiesel
     # Note that we are using a private API to define the route and that unlike sinatra usual DSL
     # we do NOT define a HEAD route for every GET route.
     Sinatra::Base.send(:route, upcase_verb, "/#{self.url}") do
+      env['wd.service'] = service
       service.handler.dispatch(self)
     end
     

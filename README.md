@@ -174,7 +174,6 @@ The request dispatcher offers a fews hooks which you can see demonstrated in
 * `params_postprocessor_hook(params)`
 * `params_exception_handler(exception)`
 * `pre_dispatch_hook`
-* `post_dispatch_hook(response)`
 
 The two first hooks are used to process the params and when implemented
 are expected to return the params that will be used in the request.

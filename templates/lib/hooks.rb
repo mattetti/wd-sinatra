@@ -66,7 +66,7 @@ module WDSinatraHooks
       halt 403 # protect by default
     end
   end
-  #
+
   #########################################
 
   # AUTHENTICATION
