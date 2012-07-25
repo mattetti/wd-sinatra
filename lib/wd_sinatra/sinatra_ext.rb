@@ -82,6 +82,10 @@ class WeaselDiesel
       service_dispatch
     end
 
+    def service_dispatch
+      instance_eval &@implementation
+    end
+
     # Forwarding some methods to the underlying app object
     def_delegators :app, :settings, :halt, :compile_template, :session
  
@@ -89,14 +93,19 @@ class WeaselDiesel
 
   end # of RequestHandler
 
-  attr_reader :handler
+
+  # Creates a new handler per request to dispatch
+  # by duplicating the alpha handler
+  def handler
+    @alpha_handler.dup
+  end
 
   def implementation(&block)
     if block_given?
-      @handler = RequestHandler.new(self, &block)
-      @handler.define_singleton_method(:service_dispatch, block)
+      @alpha_handler = RequestHandler.new(self, &block)
+      @alpha_handler.define_singleton_method(:service_dispatch, block)
     end
-    @handler
+    @alpha_handler
   end
 
   def load_sinatra_route
@@ -105,7 +114,7 @@ class WeaselDiesel
     unless ENV['DONT_PRINT_ROUTES']
       LOGGER.info "Available endpoint: #{self.http_verb.upcase} /#{self.url}" 
     end
-    raise "DSL is missing the implementation block" unless self.handler && self.handler.respond_to?(:service_dispatch)
+    raise "DSL is missing the implementation block" unless ['SKIP_SERVICE_CHECK'] || self.handler
 
     # Define the route directly to save some object allocations on the critical path
     # Note that we are using a private API to define the route and that unlike sinatra usual DSL
