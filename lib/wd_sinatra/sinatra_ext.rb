@@ -82,10 +82,6 @@ class WeaselDiesel
       service_dispatch
     end
 
-    def service_dispatch
-      instance_eval &@implementation
-    end
-
     # Forwarding some methods to the underlying app object
     def_delegators :app, :settings, :halt, :compile_template, :session
  
@@ -95,9 +91,9 @@ class WeaselDiesel
 
 
   # Creates a new handler per request to dispatch
-  # by duplicating the alpha handler
+  # by cloning the alpha handler
   def handler
-    @alpha_handler.dup
+    @alpha_handler.clone
   end
 
   def implementation(&block)
@@ -112,7 +108,7 @@ class WeaselDiesel
     service     = self
     upcase_verb = service.verb.to_s.upcase
     unless ENV['DONT_PRINT_ROUTES']
-      LOGGER.info "Available endpoint: #{self.http_verb.upcase} /#{self.url}" 
+      LOGGER.info "Available endpoint: #{self.http_verb.upcase} /#{self.url}"
     end
     raise "DSL is missing the implementation block" unless ['SKIP_SERVICE_CHECK'] || self.handler
 
