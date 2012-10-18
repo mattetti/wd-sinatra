@@ -1,5 +1,11 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.0
+* It's time for WD to graduate, it's been behaving well in production
+  for a while and no major problems were reported. A new rake task was
+added in the default Rakefile to print the routes. But besides that,
+this version didn't add anything major to 0.3.2
+
 ## 0.3.2
 * Removed `post_dispatch_hook` since it doesn't work well with `halt`
   and file responses. Use Sinatra's `after` filter instead.
