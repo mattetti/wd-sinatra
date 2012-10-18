@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'irb'
 require 'rubygems'
+require 'bundler'
+Bundler.setup
 require 'wd_sinatra/app_loader'
 root = File.expand_path('..', File.dirname(__FILE__))
 WDSinatra::AppLoader.console(root)

@@ -26,6 +26,15 @@ task :environment do
   WDSinatra::AppLoader.server(root)
 end
 
+desc "Prints the available routes set by the application"
+task :routes do
+  WDSinatra::AppLoader.console(root)
+  print "Available routes: \n"
+  WSList.all.each do |service|
+    print "#{service.http_verb.upcase}\t/#{service.url}\n"
+  end
+end
+
 WDSinatra::AppLoader.set_loadpath(root)
 Dir.glob("lib/tasks/**/*.rake").each do |task_file|
   load task_file
