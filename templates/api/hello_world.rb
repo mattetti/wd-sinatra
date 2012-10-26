@@ -1,4 +1,4 @@
-describe_service "hello_world" do |service|
+describe_service "/hello_world" do |service|
   service.formats   :json
   service.http_verb :get
   service.disable_auth # on by default

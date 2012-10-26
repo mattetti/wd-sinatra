@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.1
+* Added dependency on `WeaselDiesel` `1.2.0` or greater since the API
+  slightly changed.
+
 ## 1.0.0
 * It's time for WD to graduate, it's been behaving well in production
   for a while and no major problems were reported. A new rake task was

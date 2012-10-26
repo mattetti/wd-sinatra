@@ -31,7 +31,7 @@ task :routes do
   WDSinatra::AppLoader.console(root)
   print "Available routes: \n"
   WSList.all.each do |service|
-    print "#{service.http_verb.upcase}\t/#{service.url}\n"
+    print "#{service.http_verb.upcase}\t#{service.url}\n"
   end
 end
 

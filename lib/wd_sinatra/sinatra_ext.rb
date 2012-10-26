@@ -108,14 +108,14 @@ class WeaselDiesel
     service     = self
     upcase_verb = service.verb.to_s.upcase
     unless ENV['DONT_PRINT_ROUTES']
-      LOGGER.info "Available endpoint: #{self.http_verb.upcase} /#{self.url}"
+      LOGGER.info "Available endpoint: #{self.http_verb.upcase} #{self.url}"
     end
     raise "DSL is missing the implementation block" unless ['SKIP_SERVICE_CHECK'] || self.handler
 
     # Define the route directly to save some object allocations on the critical path
     # Note that we are using a private API to define the route and that unlike sinatra usual DSL
     # we do NOT define a HEAD route for every GET route.
-    Sinatra::Base.send(:route, upcase_verb, "/#{self.url}") do
+    Sinatra::Base.send(:route, upcase_verb, self.url) do
       env['wd.service'] = service
       service.handler.dispatch(self)
     end
