@@ -6,8 +6,8 @@ module TestUnitHelpers
     response ||= TestApi.json_response
     print response.rest_response.errors if response.status === 500
     assert response.success?, message || ["Body: #{response.rest_response.body}", "Errors: #{response.errors}", "Status code: #{response.status}"].join("\n")
-    service = WSList.all.find{|s| s.verb == response.verb && s.url == response.uri[1..-1]}
-    raise "Service for (#{response.verb.upcase} #{response.uri[1..-1]}) not found" unless service
+    service = WSList.find(response.verb, response.uri)
+    raise "Service for (#{response.verb.upcase} #{response.uri}) not found" unless service
     unless service.response.nodes.empty?
       assert response.body.is_a?(Hash), "Invalid JSON response:\n#{response.body}"
       valid, errors = service.validate_hash_response(response.body)
