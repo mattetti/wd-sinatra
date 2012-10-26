@@ -63,7 +63,7 @@
         <% WSList.all.each do |api| %>
           <div class="api" id="<%= "raw-#{api.verb}-#{api.url}" %>">
             <div>
-              <h2><%= api.verb.upcase %> <%= '[SSL]' if api.ssl %> /<%= api.url %></h2>
+              <h2><%= api.verb.upcase %> <%= '[SSL]' if api.ssl %> <%= api.url %></h2>
               <% if api.auth_required %>
                 <span class='label important'>Authentication required</span>
               <% end %>
