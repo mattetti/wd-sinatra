@@ -41,7 +41,7 @@ class WsListExtTest < MiniTest::Unit::TestCase
     ]
   end
 
-  def matched_route(url, reference_urls)
+  def matched_route(url_query, reference_urls)
     sorted_regexps = reference_urls.map do |url|
       ignore = ""
       pattern = url.gsub(/[^\?\%\\\/\:\*\w]/){ |c| 
@@ -58,7 +58,8 @@ class WsListExtTest < MiniTest::Unit::TestCase
       /\A#{pattern}\z/
     end
 
-    regexp_match = sorted_regexps.detect{|r| r.match(url) }
+    # p sorted_regexps.inspect
+    regexp_match = sorted_regexps.detect{|r| r.match(url_query) }
     if regexp_match
       regexp_match.source[/\\A(.*?)\\z/, 1]
     else
@@ -68,8 +69,8 @@ class WsListExtTest < MiniTest::Unit::TestCase
   end
 
   def assert_route_matching(base_urls)
-    assert_equal "/foo", matched_route("/foo", base_urls), "Matching /foo to /foo, #{base_urls}"
-    assert_equal "/foo/bar/bazz", matched_route("/foo/bar/bazz", base_urls)
+    assert_equal "/foo", matched_route("/foo", base_urls), "Matching /foo to /foo Registered \n#{base_urls.join("\n")}\n"
+    assert_equal "/foo/bar/bazz", matched_route("/foo/bar/bazz", base_urls), "Matching /foo/bar/bazz to /foo/bar/bazz. Registered routes: \n#{base_urls.join("\n")}\n"
     assert_equal "/foo/bart", matched_route("/foo/bart", base_urls)
     assert_equal "/foo/bar/", matched_route("/foo/bar/", base_urls)
     assert_equal "/foo/bar/([^/?#]+)", matched_route("/foo/bar/foo", base_urls)
