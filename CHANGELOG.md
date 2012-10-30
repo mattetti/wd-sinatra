@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.3
+* Bug release due to a problem with requiring the new `WSList
+  extension`.
+
 ## 1.0.2
 * Fixed a bug with the way sinatra routes are loaded. Because the routes
   can contain a globing param, the loading had to be changed to be
