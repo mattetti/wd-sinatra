@@ -106,7 +106,7 @@ module WDSinatra
     end
 
     def set_sinatra_routes
-      WSList.all.sort.each{|api| api.load_sinatra_route }
+      WSList.sorted_for_sinatra_load.each{|api| api.load_sinatra_route }
     end
 
     def load_middleware

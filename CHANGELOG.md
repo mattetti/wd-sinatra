@@ -1,5 +1,10 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.2
+* Fixed a bug with the way sinatra routes are loaded. Because the routes
+  can contain a globing param, the loading had to be changed to be
+  smarter to globbing routes are loaded last.
+
 ## 1.0.1
 * Added dependency on `WeaselDiesel` `1.2.0` or greater since the API
   slightly changed.

@@ -119,7 +119,7 @@ class WeaselDiesel
       env['wd.service'] = service
       service.handler.dispatch(self)
     end
-    
+
   end
 
 end
