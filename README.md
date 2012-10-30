@@ -1,5 +1,7 @@
 # Weasel Diesel Sinatra
 
+[![Build Status](https://secure.travis-ci.org/mattetti/wd-sinatra.png?branch=master)](https://next.travis-ci.org/mattetti/wd-sinatra)
+
 Weasel-Diesel Sinatra app gem, allowing you to generate/update sinatra apps using the Weasel Diesel DSL
 
 
