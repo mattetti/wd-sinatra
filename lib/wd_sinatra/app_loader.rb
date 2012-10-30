@@ -6,6 +6,7 @@ require 'bundler'
 Bundler.setup
 require 'logger'
 require 'weasel_diesel'
+require 'wd_sinatra/ws_list_ext'
 
 module WDSinatra
   module AppLoader
