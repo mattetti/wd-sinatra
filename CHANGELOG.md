@@ -1,5 +1,11 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.4
+* Minor change to the Rakefile to support the new
+  `wd_sinatra_active_record` gem.
+* Calling `WDSinatra::AppLoader.set_loadpath` now requires a root path
+  (used to be optional) and sets the app's root path if not set already.
+
 ## 1.0.3
 * Bug release due to a problem with requiring the new `WSList
   extension`.
