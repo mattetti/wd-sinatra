@@ -29,7 +29,7 @@ module WDSinatra
       @root = root_path
       unless @booted
         set_env
-        set_loadpath
+        set_loadpath(root_path)
         load_environment
         load_lib_dependencies
         load_app_file
@@ -74,8 +74,8 @@ module WDSinatra
       LOGGER.debug(debug_msg) if debug_msg
     end
 
-    def set_loadpath(root=nil)
-      root ||= root_path
+    def set_loadpath(root)
+      @root ||= root
       $: << root
       $: << File.join(root, 'lib')
       $: << File.join(root, 'models')
