@@ -71,6 +71,12 @@ abspath=$(cd ${0%/*} && echo $PWD/${0##*/})
 $abspath/../../bin/console
 ```
 
+### ORM
+
+By default the generated app doesn't come with any ORMs, but if you want to use ActiveRecord, you can use this gem:
+[wd_sinatra_active_record](https://github.com/mattetti/wd_sinatra_active_record)
+
+
 ### Documentation generation
 
     $ rake doc:services
