@@ -219,14 +219,6 @@ Of course, you'll need to require `Yajl` first and add it to your
 Gemfile if you want to use Bundler.
 
 
-
-## Using an ORM
-
-TODO: see https://github.com/mattetti/sinatra-web-api-example/  for now
-for an example of setting up ActiveRecord.
-Eventually the generator will take an option to generate an AR, DM or
-other ORM template.
-
 ## Update
 
 To update your app, just update your gem dependency on `wd_sinatra`, you
