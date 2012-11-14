@@ -6,7 +6,6 @@ Bundler.setup
 require 'wd_sinatra/app_loader'
 
 root = File.expand_path(File.dirname(__FILE__))
-RAKE_APP_ROOT = root
 
 Rake::TestTask.new do |t|
   t.libs << "."
@@ -18,8 +17,16 @@ task :default => :test
 
 # boot the app
 task :setup_app do
-  ENV['DONT_CONNECT'] = 'true'
-  WDSinatra::AppLoader.server(root)
+  ENV['DONT_CONNECT'] ||= 'true'
+  begin
+    WDSinatra::AppLoader.console(root)
+  rescue Exception => e
+    if defined?(ActiveRecord) && e.is_a?(ActiveRecord::ConnectionNotEstablished)
+      ENV['DONT_CONNECT'] == 'true' ? print(e.message+"\n") : raise(e)
+    else
+      raise(e)
+    end
+  end
 end
 
 task :environment do
@@ -27,7 +34,7 @@ task :environment do
   WDSinatra::AppLoader.server(root)
 end
 
-desc "Prints the available routes set by the application"
+desc "Print the available routes"
 task :routes do
   WDSinatra::AppLoader.console(root)
   print "Available routes: \n"
