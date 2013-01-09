@@ -1,5 +1,10 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.5
+* Minor update to the `WeaselDiesel` class and the
+  newrelic instrumentation to be compatible with the latest version and to
+  fix a bug which prevented some tracing.
+
 ## 1.0.4
 * Minor change to the Rakefile to support the new
   `wd_sinatra_active_record` gem.

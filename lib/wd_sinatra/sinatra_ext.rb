@@ -4,6 +4,11 @@ require 'json'
 
 class WeaselDiesel
 
+  # @return [RequestHandler] The reference handler that gets cloned for each request.
+  #  Every time you call `service.handler`, you get a clone of the alpha_handler. This getter
+  #  is here in case you need to change something to the reference handler.
+  attr_reader :alpha_handler
+
   class RequestHandler
     extend Forwardable
 

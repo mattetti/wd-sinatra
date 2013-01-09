@@ -23,9 +23,10 @@ DependencyDetection.defer do
     end
     # Monitor the actual dispatch of each service
     WSList.all.each do |service|
-      service.handler.class_eval do
+      # Ruby 1.9 only - time to update!
+      service.alpha_handler.singleton_class.class_eval do
         add_method_tracer :service_dispatch, 'Service/Dispatch'
-      end
+      end if service.alpha_handler && service.alpha_handler.respond_to?(:singleton_class)
     end
   end
 end

@@ -1,9 +1,9 @@
 if defined?(NewRelic)
-  if RACK_ENV == 'development'
-    require 'new_relic/rack/developer_mode'
-    use NewRelic::Rack::DeveloperMode
-  end
-  if NewRelic::Control.instance.agent_enabled?
+  #if RACK_ENV == 'development'
+    #require 'new_relic/rack/developer_mode'
+    #use NewRelic::Rack::DeveloperMode
+  #end
+  if NewRelic::Agent.config[:agent_enabled]
     LOGGER.info "New Relic monitoring enabled App name: '#{NewRelic::Control.instance['app_name']}', Mode: '#{NewRelic::Control.instance.app}'"
   end
 end
