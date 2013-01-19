@@ -1,5 +1,9 @@
 # Weasel Diesel Sinatra Changelog
 
+## 1.0.6
+* Updated various dependencies to get the latest versions of WD, Rack,
+Sinatra to get the bug & security fixes.
+
 ## 1.0.5
 * Minor update to the `WeaselDiesel` class and the
   newrelic instrumentation to be compatible with the latest version and to

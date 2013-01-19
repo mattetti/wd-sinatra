@@ -15,9 +15,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = WD::Sinatra::VERSION
 
+  gem.add_dependency('sinatra', ">= 1.3.3")
   gem.add_dependency('rake')
-  gem.add_dependency('weasel_diesel', ">= 1.2.0")
-  gem.add_dependency('rack')
+  gem.add_dependency('weasel_diesel', ">= 1.2.1")
+  gem.add_dependency('rack', ">= 1.4.4")
   gem.add_dependency('rack-test')
   gem.add_dependency('thor')
   gem.add_dependency('minitest')
