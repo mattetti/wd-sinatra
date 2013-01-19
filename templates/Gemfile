@@ -1,9 +1,5 @@
 source "http://rubygems.org"
 
-# web engine
-gem "sinatra", "1.3.2"
-# service DSL
-gem "weasel_diesel"
 gem "wd_sinatra"
 # gem 'wd_newrelic_rpm', :require => 'newrelic_rpm'
 
