@@ -47,7 +47,7 @@ like the most.
 
 ### Generating a new service
 
-You need to have thor installed for that, you might want to add it yo
+You need to have thor and active support installed for that, you might want to add it yo
 your gemfile.
 
     $ thor :service get /foo/bar foo_bar.rb
