@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = WD::Sinatra::VERSION
 
   gem.add_dependency('sinatra', ">= 1.3.3")
+  gem.add_dependency('activesupport') # used by the generator
   gem.add_dependency('rake')
   gem.add_dependency('weasel_diesel', ">= 1.2.1")
   gem.add_dependency('rack', ">= 1.4.4")
