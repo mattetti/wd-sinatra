@@ -74,8 +74,9 @@ $abspath/../../bin/console
 ### ORM
 
 By default the generated app doesn't come with any ORMs, but if you want to use ActiveRecord, you can use these gems:
-[wd_sinatra_active_record](https://github.com/mattetti/wd_sinatra_active_record)
-[wd_sinatra_sequel](https://github.com/kamui/wd_sinatra_sequel)
+
+* [wd_sinatra_active_record](https://github.com/mattetti/wd_sinatra_active_record)
+* [wd_sinatra_sequel](https://github.com/kamui/wd_sinatra_sequel)
 
 
 ### Documentation generation
