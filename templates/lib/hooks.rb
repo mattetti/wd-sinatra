@@ -1,13 +1,7 @@
-require 'body_parser' # from the lib folder
-# Change the JSON parser if you want to use Yajl for instance.
-require 'json'
-BodyParser.json_parser = JSON
-
 module WDSinatraHooks
 
   MOBILE_X_HEADER   = 'HTTP_X_MOBILE_TOKEN'
   INTERNAL_X_HEADER = 'HTTP_X_INTERNAL_API_KEY'
-  JSON_BODY_VERBS   =  %w(POST PUT DELETE)
 
   ####### HOOKS #############################
   #
@@ -21,18 +15,13 @@ module WDSinatraHooks
   # @param [Hash] params the incoming params.
   # processed.
   # @returns [Hash] the pre processed params.
-  def params_preprocessor_hook(params)
-    if JSON_BODY_VERBS.include?(request.request_method)
-      BodyParser.parse(params, request.body, request.content_type)
-    else
-      params
-    end
-  end
+  # def params_preprocessor_hook(params)
+  # end
 
 
   # This hooks gets called when an exception is raised while preprocessing the params,
   # verifying them or post processing them.
-  # If this method isn't defined, the default handler is used (a 400 error is returned with the 
+  # If this method isn't defined, the default handler is used (a 400 error is returned with the
   # exception message sent back as a json.
   #
   # @param [Exception] exception The exception that was rescued.
@@ -53,7 +42,7 @@ module WDSinatraHooks
 
   # This hook gets called before dispatching any
   # requests.
-  # 
+  #
   # Implementation example
   def pre_dispatch_hook
     if service.extra[:mobile]
