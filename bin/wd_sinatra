@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "rubygems"
 require "thor/group"
+require "active_support/inflector"
 
 class WdSinatra < Thor::Group
   include Thor::Actions
@@ -45,6 +46,18 @@ class WdSinatra < Thor::Group
     end
   end
 
+  def set_app_name
+    template "config/middleware.rb", "#{name}/config/middleware.rb"
+    template "config/sinatra_config.rb", "#{name}/config/sinatra_config.rb"
+    template "api/hello_world.rb", "#{name}/api/hello_world.rb"
+    template "config.ru", "#{name}/config.ru"
+    template "Thorfile", "#{name}/Thorfile"
+  end
+
+  protected
+  def name_const
+    @name_const ||= name.gsub(/\W/, '_').squeeze('_').camelize
+  end
 end
 
 WdSinatra.start

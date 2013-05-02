@@ -84,7 +84,7 @@ module WDSinatra
     def load_lib_dependencies
       # WeaselDiesel is the web service DSL gem used to define services.
       require 'weasel_diesel'
-      require 'sinatra'
+      require 'sinatra/base'
       require 'wd_sinatra/sinatra_ext'
     end
 
