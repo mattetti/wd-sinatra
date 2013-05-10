@@ -55,9 +55,9 @@ module WDSinatraHooks
     require "rack/accept"
     accept = env["rack-accept.request"]
     service_media_types = SUPPORTED_MEDIA_TYPES.select {|k,v| service.formats.include?(v)}
-    media_type = accept.media_type.best_of(service_media_types.keys)
-    halt 406 unless media_type
-    env["wd.format"] =  SUPPORTED_MEDIA_TYPES[media_type]
+    env["wd.media_type"] = accept.media_type.best_of(service_media_types.keys)
+    halt 406 unless env["wd.media_type"]
+    env["wd.format"] =  SUPPORTED_MEDIA_TYPES[env["wd.media_type"]]
     content_type env["wd.format"], charset: "utf-8"
 
     if service.extra[:mobile]
