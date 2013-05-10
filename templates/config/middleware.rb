@@ -13,4 +13,8 @@ end
 # use ActiveRecord::ConnectionAdapters::ConnectionManagement
 
 use Airbrake::Rack if defined?(Airbrake)
+
 use Rack::ContentLength
+
+require "rack/parser"
+use Rack::Parser
