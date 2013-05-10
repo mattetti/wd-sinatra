@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rake')
   gem.add_dependency('weasel_diesel', ">= 1.2.1")
   gem.add_dependency('rack', ">= 1.4.4")
+  gem.add_dependency('rack-parser', ">= 0.2.0")
   gem.add_dependency('rack-test')
   gem.add_dependency('thor')
   gem.add_dependency('minitest')
