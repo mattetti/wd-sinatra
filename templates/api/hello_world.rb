@@ -24,7 +24,7 @@ describe_service "/hello_world" do |service|
   # ACTION/IMPLEMENTATION
   service.implementation do
     data = {:message => "Hello #{params[:name]}", :at => Time.now}
-    case params[:format]
+    case env["wd.format"]
     when :json
       data.to_json
     when :xml
