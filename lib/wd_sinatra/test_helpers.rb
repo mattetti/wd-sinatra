@@ -14,7 +14,7 @@ class Requester
   include ::Rack::Test::Methods
 
   def app
-    Sinatra::Application
+    raise 'NotImplemented, This should be an instance of your sinatra application'
   end
 end
 

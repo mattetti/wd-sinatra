@@ -21,8 +21,13 @@ include TestUnitHelpers
 TestApi.auth_request_x_header = WDSinatraHooks::INTERNAL_X_HEADER[/HTTP_(.*)/, 1] # strip the header marker added by Rack
 TestApi.mobile_request_x_header = WDSinatraHooks::MOBILE_X_HEADER[/HTTP_(.*)/, 1]   # strip the header marker added by Rack
 
-module TestApi
+class Requester
+  def app
+    <%= name_const %>.new
+  end
+end
 
+module TestApi
   # Edit this method to reflect your own Auth strategy
   def self.valid_internal_api_headers(headers)
     custom_headers = {TestApi.auth_request_x_header => WDSinatraHooks::ALLOWED_API_KEYS[0]}

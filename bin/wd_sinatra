@@ -50,6 +50,7 @@ class WdSinatra < Thor::Group
     template "config/middleware.rb", "#{name}/config/middleware.rb"
     template "config/sinatra_config.rb", "#{name}/config/sinatra_config.rb"
     template "api/hello_world.rb", "#{name}/api/hello_world.rb"
+    template "test/test_helpers.rb", "#{name}/test/test_helpers.rb"
     template "config.ru", "#{name}/config.ru"
     template "Thorfile", "#{name}/Thorfile"
   end
