@@ -15,44 +15,12 @@ class WdSinatra < Thor::Group
     File.expand_path(File.join('..', 'templates'), File.dirname(__FILE__))
   end
 
-  def create_lib_directory
-    directory "lib", "#{name}/lib"
+  def create_app
+    directory ".", "#{name}"
   end
 
-  def create_config_directory
-    directory "config", "#{name}/config"
-  end
-
-  def create_bin_directory
-    directory "bin", "#{name}/bin"
+  def chmod_bin_console
     chmod "#{name}/bin/console", 0755
-  end
-
-  def create_public_directory
-    directory "public", "#{name}/public"
-  end
-
-  def create_api_directory
-    directory "api", "#{name}/api"
-  end
-
-  def create_test_directory
-    directory "test", "#{name}/test"
-  end
-
-  def create_files
-    %W{Rakefile Gemfile config.ru Guardfile Thorfile}.each do |filename|
-      copy_file filename, "#{name}/#{filename}"
-    end
-  end
-
-  def set_app_name
-    template "config/middleware.rb", "#{name}/config/middleware.rb"
-    template "config/sinatra_config.rb", "#{name}/config/sinatra_config.rb"
-    template "api/hello_world.rb", "#{name}/api/hello_world.rb"
-    template "test/test_helpers.rb", "#{name}/test/test_helpers.rb"
-    template "config.ru", "#{name}/config.ru"
-    template "Thorfile", "#{name}/Thorfile"
   end
 
   protected
