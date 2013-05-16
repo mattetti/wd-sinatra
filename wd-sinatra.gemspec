@@ -24,7 +24,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rack-accept', ">= 0.4.5")
   gem.add_dependency('rack-test')
   gem.add_dependency('thor')
-  gem.add_dependency('minitest')
+  gem.add_dependency('minitest', "~> 4.7.4")
 end
-
-
