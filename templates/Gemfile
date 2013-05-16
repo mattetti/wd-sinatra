@@ -1,17 +1,17 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gem "wd_sinatra"
 gem "activesupport"
-# gem 'wd_newrelic_rpm', :require => 'newrelic_rpm'
+# gem "wd_newrelic_rpm", :require => "newrelic_rpm"
 
-gem 'backports', '2.3.0', :platform => 'ruby_18'
-gem 'json', :platform => 'ruby_18'
+gem "backports", ">= 2.3.0", :platforms => "ruby_18"
+gem "json", :platforms => "ruby_18"
 
 group :development, :test do
-  gem "rack-test", "0.6.1"
+  gem "rack-test", ">= 0.6.1"
   # gem "foreman"
   # gem "puma"
-  gem "minitest"
+  gem "minitest", "~> 4.7.4"
   # gem "guard-puma"
   # gem "guard-minitest"
   gem "rake"

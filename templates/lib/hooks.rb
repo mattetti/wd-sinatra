@@ -2,6 +2,12 @@ module WDSinatraHooks
 
   MOBILE_X_HEADER   = 'HTTP_X_MOBILE_TOKEN'
   INTERNAL_X_HEADER = 'HTTP_X_INTERNAL_API_KEY'
+  SUPPORTED_MEDIA_TYPES = {
+    "application/json" => :json,
+    "application/xml" => :xml,
+    # add custom media types here, for example:
+    # "application/vnd.example+json" => :json,
+  }
 
   ####### HOOKS #############################
   #
@@ -45,6 +51,21 @@ module WDSinatraHooks
   #
   # Implementation example
   def pre_dispatch_hook
+    # content negotiation
+    accept = env["rack-accept.request"]
+    if accept
+      service_media_types = SUPPORTED_MEDIA_TYPES.select {|k,v| service.formats.include?(v)}
+      env["wd.media_type"] = accept.media_type.best_of(service_media_types.keys)
+      halt 406 unless env["wd.media_type"]
+      env["wd.format"] =  SUPPORTED_MEDIA_TYPES[env["wd.media_type"]]
+    else
+      env["wd.media_type"] = "*/*"
+      env["wd.format"] =  service.formats.first
+      halt 406 unless env["wd.format"] # 406 if no defined service.formats
+    end
+
+    content_type env["wd.format"], charset: "utf-8"
+
     if service.extra[:mobile]
       mobile_auth_check
     elsif service.extra[:internal]

@@ -1,5 +1,5 @@
 describe_service "/hello_world" do |service|
-  service.formats   :json
+  service.formats   :json, :xml
   service.http_verb :get
   service.disable_auth # on by default
 
@@ -23,7 +23,13 @@ describe_service "/hello_world" do |service|
 
   # ACTION/IMPLEMENTATION
   service.implementation do
-    {:message => "Hello #{params[:name]}", :at => Time.now}.to_json
+    data = {:message => "Hello #{params[:name]}", :at => Time.now}
+    case env["wd.format"]
+    when :json
+      data.to_json
+    when :xml
+      # data.to_xml # serialize to xml
+    end
   end
 
 end
