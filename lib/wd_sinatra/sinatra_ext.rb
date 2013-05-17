@@ -57,11 +57,11 @@ class WeaselDiesel
       @request  = app.request
       @response = app.response
       @service  = service
-  
+
       begin
         # raises an exception if the params are not valid
-        # otherwise update the app params with potentially new params (using default values)   
-        # note that if a type is mentioned for a params, the object will be cast to this object type 
+        # otherwise update the app params with potentially new params (using default values)
+        # note that if a type is mentioned for a params, the object will be cast to this object type
         #
         # removing the fake sinatra params since v1.3 added this. (should be eventually removed)
         if app.params['splat']
@@ -89,7 +89,7 @@ class WeaselDiesel
 
     # Forwarding some methods to the underlying app object
     def_delegators :app, :settings, :halt, :compile_template, :session
- 
+
     private ##################################################
 
   end # of RequestHandler
@@ -109,7 +109,7 @@ class WeaselDiesel
     @alpha_handler
   end
 
-  def load_sinatra_route
+  def load_sinatra_route(sinatra_app=Sinatra::Base)
     service     = self
     upcase_verb = service.verb.to_s.upcase
     unless ENV['DONT_PRINT_ROUTES']
@@ -120,7 +120,7 @@ class WeaselDiesel
     # Define the route directly to save some object allocations on the critical path
     # Note that we are using a private API to define the route and that unlike sinatra usual DSL
     # we do NOT define a HEAD route for every GET route.
-    Sinatra::Base.send(:route, upcase_verb, self.url) do
+    sinatra_app.send(:route, upcase_verb, self.url) do
       env['wd.service'] = service
       service.handler.dispatch(self)
     end

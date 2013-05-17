@@ -5,20 +5,28 @@ end
 require 'bundler'
 Bundler.setup
 require 'logger'
+require 'sinatra/base'
 require 'weasel_diesel'
 require 'wd_sinatra/ws_list_ext'
+require 'active_support/inflector'
 
 module WDSinatra
   module AppLoader
     module_function
 
     # Boot in server mode
-    def server(root_path)
+    def server(root_path, sinatra_app=nil)
       @root = root_path
       unless @booted
         console(root_path)
         load_middleware
-        set_sinatra_routes
+        if !sinatra_app
+          set_sinatra_routes
+        else
+          sinatra_app = sinatra_app.to_s if sinatra_app.is_a?(Symbol)
+          sinatra_app = sinatra_app.camelize.constantize if sinatra_app.is_a?(String)
+          set_sinatra_routes(sinatra_app)
+        end
         set_sinatra_settings
         load_hooks
       end
@@ -106,8 +114,8 @@ module WDSinatra
       end
     end
 
-    def set_sinatra_routes
-      WSList.sorted_for_sinatra_load.each{|api| api.load_sinatra_route }
+    def set_sinatra_routes(sinatra_app=Sinatra::Base)
+      WSList.sorted_for_sinatra_load.each{|api| api.load_sinatra_route(sinatra_app) }
     end
 
     def load_middleware

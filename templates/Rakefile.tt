@@ -31,7 +31,7 @@ end
 
 task :environment do
   ENV['DONT_CONNECT'] = nil
-  WDSinatra::AppLoader.server(root)
+  WDSinatra::AppLoader.server(root, '<%= name_const %>')
 end
 
 desc "Print the available routes"
