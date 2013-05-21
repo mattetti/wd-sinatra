@@ -109,7 +109,8 @@ class WeaselDiesel
     @alpha_handler
   end
 
-  def load_sinatra_route(sinatra_app=Sinatra::Base)
+  def load_sinatra_route(sinatra_app=nil)
+    sinatra_app ||= Sinatra::Base
     service     = self
     upcase_verb = service.verb.to_s.upcase
     unless ENV['DONT_PRINT_ROUTES']
