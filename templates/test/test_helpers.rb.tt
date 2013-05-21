@@ -8,7 +8,8 @@ require 'wd_sinatra/test_helpers'
 
 ENV['DONT_PRINT_ROUTES'] = 'true'
 root = File.expand_path('..', File.dirname(__FILE__))
-WDSinatra::AppLoader.server(root, '<%= name_const %>')
+WDSinatra::AppLoader.setup(root)
+WDSinatra::AppLoader.server(<%= name_const %>)
 WeaselDiesel.send(:include, JSONResponseVerification)
 
 if RUBY_VERSION =~ /1.8/

@@ -14,26 +14,19 @@ module WDSinatra
   module AppLoader
     module_function
 
-    # Boot in server mode
-    def server(root_path, sinatra_app=nil)
-      @root = root_path
-      unless @booted
-        console(root_path)
+    # Boot server
+    def server(sinatra_app=nil)
+      raise StandardError, "WDSinatra::AppLoader#setup must be run first." unless root_path
+      unless @server_loaded
         load_middleware
-        if !sinatra_app
-          set_sinatra_routes
-        else
-          sinatra_app = sinatra_app.to_s if sinatra_app.is_a?(Symbol)
-          sinatra_app = sinatra_app.camelize.constantize if sinatra_app.is_a?(String)
-          set_sinatra_routes(sinatra_app)
-        end
         set_sinatra_settings
+        set_sinatra_routes(sinatra_app)
         load_hooks
+        @server_loaded = true
       end
     end
 
-    # Boot in console mode
-    def console(root_path)
+    def setup(root_path)
       @root = root_path
       unless @booted
         set_env
@@ -114,7 +107,8 @@ module WDSinatra
       end
     end
 
-    def set_sinatra_routes(sinatra_app=Sinatra::Base)
+    def set_sinatra_routes(sinatra_app)
+      sinatra_app ||= Sinatra::Base
       WSList.sorted_for_sinatra_load.each{|api| api.load_sinatra_route(sinatra_app) }
     end
 

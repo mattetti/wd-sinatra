@@ -5,5 +5,5 @@ require 'bundler'
 Bundler.setup
 require 'wd_sinatra/app_loader'
 root = File.expand_path('..', File.dirname(__FILE__))
-WDSinatra::AppLoader.console(root)
+WDSinatra::AppLoader.setup(root)
 IRB.start(__FILE__)

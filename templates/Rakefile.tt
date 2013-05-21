@@ -19,7 +19,7 @@ task :default => :test
 task :setup_app do
   ENV['DONT_CONNECT'] ||= 'true'
   begin
-    WDSinatra::AppLoader.console(root)
+    WDSinatra::AppLoader.setup(root)
   rescue Exception => e
     if defined?(ActiveRecord) && e.is_a?(ActiveRecord::ConnectionNotEstablished)
       ENV['DONT_CONNECT'] == 'true' ? print(e.message+"\n") : raise(e)
@@ -31,12 +31,13 @@ end
 
 task :environment do
   ENV['DONT_CONNECT'] = nil
-  WDSinatra::AppLoader.server(root, '<%= name_const %>')
+  WDSinatra::AppLoader.setup(root)
+  WDSinatra::AppLoader.server(<%= name_const %>)
 end
 
 desc "Print the available routes"
 task :routes do
-  WDSinatra::AppLoader.console(root)
+  WDSinatra::AppLoader.setup(root)
   print "Available routes: \n"
   WSList.all.each do |service|
     print "#{service.http_verb.upcase}\t#{service.url}\n"
