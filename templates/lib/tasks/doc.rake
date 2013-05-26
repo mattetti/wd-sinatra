@@ -12,12 +12,12 @@ namespace :doc do
     destination = File.join(root, 'doc')
     FileUtils.mkdir_p(destination) unless File.exist?(destination)
     copy_assets(destination)
-    File.open("#{destination}/index.html", "w"){|f| f << template.result(binding)}
+    File.open("#{destination}/index.html", "w"){|f| f << doc_template.result(binding)}
     puts "Documentation available there: #{destination}/index.html"
     `open #{destination}/index.html` if RUBY_PLATFORM =~ /darwin/ && !ENV['DONT_OPEN']
   end
 
-  def template
+  def doc_template
     file = resources.join 'template.erb'
     ERB.new File.read(file)
   end
@@ -31,7 +31,7 @@ namespace :doc do
     %W{css js images}.each do |asset_type|
       FileUtils.mkdir_p(File.join(destination, asset_type))
     end
-    Dir.glob(resources.join("bootstrap", "js", "*.js")).each do |file| 
+    Dir.glob(resources.join("bootstrap", "js", "*.js")).each do |file|
       FileUtils.cp(file, File.join(destination, 'js'))
     end
     FileUtils.cp(resources.join('bootstrap', 'bootstrap.css'), File.join(destination, 'css'))
