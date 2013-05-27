@@ -3,8 +3,19 @@ describe_service "/hello_world" do |service|
   service.http_verb :get
   service.disable_auth # on by default
 
+  # DOCUMENTATION
+  service.documentation do |doc|
+    doc.overall "Be polite and say hello"
+    doc.example "<code>curl -I 'http://localhost:9292/hello_world?name=Matt'</code>"
+  end
+
   # INPUT
-  service.param.string  :name, :default => 'World'
+  service.params do |p|
+    p.string  :name, :default => 'World'
+    p.namespace :user do |user|
+      user.integer :id, :required => :true
+    end
+  end
 
   # OUTPUT
   service.response do |response|
@@ -12,13 +23,6 @@ describe_service "/hello_world" do |service|
       obj.string :message, :doc => "The greeting message sent back. Defaults to 'World'"
       obj.datetime :at, :doc => "The timestamp of when the message was dispatched"
     end
-  end
-
-  # DOCUMENTATION
-  service.documentation do |doc|
-    doc.overall "This service provides a simple hello world implementation example."
-    doc.param :name, "The name of the person to greet."
-    doc.example "<code>curl -I 'http://localhost:9292/hello_world?name=Matt'</code>"
   end
 
   # ACTION/IMPLEMENTATION
