@@ -1,0 +1,61 @@
+# encoding: utf-8
+$:.unshift File.expand_path("../lib", __FILE__)
+require 'bundler'
+require 'active_support/inflector'
+
+class Default < Thor
+  include Thor::Actions
+
+  desc "service VERB URI FILENAME", "Generate scaffolding for a new service"
+  def service(verb, route, path)
+    route = route.gsub(/^\//, "") # strip leading forward slash
+    path_without_suffix = path.gsub(/\.rb$/, "")
+    create_file(File.join("api", "#{path_without_suffix}.rb")) do
+      <<-RUBY.gsub(/^\s{6}/, '')
+      class <%= name_const %> < Sinatra::Base
+        describe_service "#{route}" do |service|
+          service.formats   :json
+          service.http_verb :#{verb.downcase}
+          service.disable_auth # on by default
+
+          # INPUT
+          service.param.string :name, :default => 'World', :doc => "The name of the person to greet."
+
+          # OUTPUT
+          service.response do |response|
+            response.object do |obj|
+              obj.string :message, :doc => "The greeting message sent back. Defaults to 'World'"
+              obj.datetime :at, :doc => "The timestamp of when the message was dispatched"
+            end
+          end
+
+          # DOCUMENTATION
+          service.documentation do |doc|
+            doc.overall "This service provides a simple hello world implementation example."
+            doc.example "<code>curl -I 'http://localhost:9292/hello_world?name=Matt'</code>"
+          end
+
+          # ACTION/IMPLEMENTATION
+          service.implementation do
+            halt 501, "Not Implemented, which is a pity, I'm sure"
+          end
+        end
+      end
+      RUBY
+    end
+
+    class_name = path_without_suffix.classify.gsub(/::/, '') # strip modules; just want a unique class name for spec
+    create_file(File.join("test", "integration", "#{path_without_suffix}_test.rb")) do
+      <<-RUBY.gsub(/^\s{6}/, '')
+      require 'test_helpers'
+
+      class #{class_name}Spec < MiniTest::Spec
+        it "performs request" do
+          TestApi.#{verb} "/#{route}", {}
+          assert_api_response
+        end
+      end
+      RUBY
+    end
+  end
+end
