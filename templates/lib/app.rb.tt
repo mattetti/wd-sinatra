@@ -13,7 +13,7 @@ if File.exist?(airbrake_config_file)
     require 'airbrake'
     Airbrake.configure do |config|
       config.api_key = airbrake_config['api_key']
-      (airbrake_config['params_filters'] - config.params_filters).each do |param| 
+      (airbrake_config['params_filters'] - config.params_filters).each do |param|
         config.params_filters << param
       end
       config.environment_name = RACK_ENV
@@ -21,4 +21,7 @@ if File.exist?(airbrake_config_file)
       config.logger = LOGGER
     end
   end
+end
+
+class <%= name_const %> < Sinatra::Base
 end

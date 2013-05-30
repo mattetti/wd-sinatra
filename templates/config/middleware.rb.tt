@@ -8,13 +8,15 @@ if defined?(NewRelic)
   end
 end
 
-# Use this middleware with AR to avoid threading issues.
-# require 'active_record'
-# use ActiveRecord::ConnectionAdapters::ConnectionManagement
+class <%= name_const %> < Sinatra::Base
+  # Use this middleware with AR to avoid threading issues.
+  # require 'active_record'
+  # use ActiveRecord::ConnectionAdapters::ConnectionManagement
 
-use Airbrake::Rack if defined?(Airbrake)
+  use Airbrake::Rack if defined?(Airbrake)
 
-use Rack::ContentLength
+  use Rack::ContentLength
 
-require "rack/parser"
-use Rack::Parser
+  require "rack/parser"
+  use Rack::Parser
+end

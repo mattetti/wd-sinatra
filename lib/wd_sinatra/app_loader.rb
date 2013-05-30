@@ -5,27 +5,27 @@ end
 require 'bundler'
 Bundler.setup
 require 'logger'
+require 'sinatra/base'
 require 'weasel_diesel'
 require 'wd_sinatra/ws_list_ext'
+require 'active_support/inflector'
 
 module WDSinatra
   module AppLoader
     module_function
 
-    # Boot in server mode
-    def server(root_path)
-      @root = root_path
-      unless @booted
-        console(root_path)
-        load_middleware
-        set_sinatra_routes
+    # Boot server
+    def server(sinatra_app=nil)
+      raise StandardError, "WDSinatra::AppLoader#setup must be run first." unless root_path
+      unless @server_loaded
         set_sinatra_settings
+        set_sinatra_routes(sinatra_app)
         load_hooks
+        @server_loaded = true
       end
     end
 
-    # Boot in console mode
-    def console(root_path)
+    def setup(root_path)
       @root = root_path
       unless @booted
         set_env
@@ -84,7 +84,7 @@ module WDSinatra
     def load_lib_dependencies
       # WeaselDiesel is the web service DSL gem used to define services.
       require 'weasel_diesel'
-      require 'sinatra'
+      require 'sinatra/base'
       require 'wd_sinatra/sinatra_ext'
     end
 
@@ -106,12 +106,9 @@ module WDSinatra
       end
     end
 
-    def set_sinatra_routes
-      WSList.sorted_for_sinatra_load.each{|api| api.load_sinatra_route }
-    end
-
-    def load_middleware
-      require File.join(root_path, 'config', 'middleware')
+    def set_sinatra_routes(sinatra_app)
+      sinatra_app ||= Sinatra::Base
+      WSList.sorted_for_sinatra_load.each{|api| api.load_sinatra_route(sinatra_app) }
     end
 
     def set_sinatra_settings
