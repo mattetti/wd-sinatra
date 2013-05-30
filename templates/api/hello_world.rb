@@ -12,9 +12,6 @@ describe_service "/hello_world" do |service|
   # INPUT
   service.params do |p|
     p.string  :name, :default => 'World'
-    p.namespace :user do |user|
-      user.integer :id, :required => :true
-    end
   end
 
   # OUTPUT
