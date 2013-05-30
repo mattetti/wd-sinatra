@@ -38,12 +38,11 @@ The app is now ready to use, to start it you can use rack:
 This will start the server on port 9292 and the default GET `/hello_world` service will be available at: `http://localhost:9292/hello_world'.
 
 Note that the code won't be reloading automatically in the server when
-you make a modification to the source code. For that, you might want to
-use Puma + [Guard](https://github.com/jc00ke/guard-puma) or another tool that allows you to do that.
-While it's a nice feature to have, a lot of developers like to do that
-differently and it seems more sensitive to let them pick the way they
-like the most.
+you make a modification to the source code. For that, we include
+[rerun](https://github.com/alexch/rerun), which is only enabled in the
+development and test environments. Use it like this:
 
+    $ bundle exec rerun -- rackup
 
 ### Generating a new service
 
