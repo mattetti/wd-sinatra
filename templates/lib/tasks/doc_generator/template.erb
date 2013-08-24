@@ -140,6 +140,12 @@
     .param-value {
       font-family: monospace;
     }
+    .namespace-required:after {
+      content: '*';
+      color: red;
+      font-weight: bold;
+      margin-left: 5px;
+    }
 
     .example {
       border: 1px solid #cacaca;
@@ -193,7 +199,7 @@
           <ul class="param-list">
           <% api.params.namespaced_params.each do |params| %>
             <li>
-              <h4>Namespace <%= params.space_name %></h4>
+              <h4 class="<%= 'namespace-required' unless params.space_name.null %>">Namespace <%= params.space_name.name %></h4>
               <%= input_params_html(params.list_required, params.list_optional) %>
             </li>
           <% end %>
