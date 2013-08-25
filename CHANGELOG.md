@@ -1,5 +1,21 @@
 # Weasel Diesel Sinatra Changelog
 
+## HEAD:
+### Major Changes (Backwards Incompatible)
+* Switch generated Sinatra app from classic to modular style.
+* Set content_type depending on service.formats and http accept header.
+* Drop support for ruby `1.8.7`.
+
+### New Features
+* Replace custom BodyParser with `rack-parser` middleware.
+* Use `rerun` gem for auto code reloading in development/test.
+* Update doc generation to support optional namespaces.
+* Simpler, more compact documentation template.
+  Removes `WD::Response::Element#to_html` and Bootstrap dependencies.
+
+### Resolved issues
+* Fix conflict with current Sinatra's `template`.
+
 ## 1.0.6
 * Updated various dependencies to get the latest versions of WD, Rack,
 Sinatra to get the bug & security fixes.
