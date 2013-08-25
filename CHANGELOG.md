@@ -15,6 +15,7 @@
 
 ### Resolved issues
 * Fix conflict with current Sinatra's `template`.
+* Fix ul tag not rendering in doc generator.
 
 ## 1.0.6
 * Updated various dependencies to get the latest versions of WD, Rack,
