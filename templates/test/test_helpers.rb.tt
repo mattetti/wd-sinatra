@@ -12,10 +12,6 @@ WDSinatra::AppLoader.setup(root)
 WDSinatra::AppLoader.server(<%= name_const %>)
 WeaselDiesel.send(:include, JSONResponseVerification)
 
-if RUBY_VERSION =~ /1.8/
-  require 'minitest/autorun'
-end
-
 require 'wd_sinatra/test_unit_helpers'
 include TestUnitHelpers
 
