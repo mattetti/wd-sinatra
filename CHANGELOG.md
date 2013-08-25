@@ -1,6 +1,6 @@
 # Weasel Diesel Sinatra Changelog
 
-## HEAD:
+## 2.0.0:
 ### Major Changes (Backwards Incompatible)
 * Switch generated Sinatra app from classic to modular style.
 * Set content_type depending on service.formats and http accept header.
