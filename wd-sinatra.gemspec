@@ -16,7 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = WD::Sinatra::VERSION
 
   gem.add_dependency('sinatra', ">= 1.3.3")
-  gem.add_dependency('activesupport', "~> 3.x") # used by the generator
   gem.add_dependency('rake')
   gem.add_dependency('weasel_diesel', ">= 1.2.2")
   gem.add_dependency('rack', ">= 1.4.4")
@@ -25,4 +24,10 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rack-test')
   gem.add_dependency('thor')
   gem.add_dependency('minitest', "~> 4.7.4")
+
+  if RUBY_VERSION =~ /1.9.2/
+    gem.add_dependency('activesupport', "~> 3.2")
+  else
+    gem.add_dependency('activesupport') # used by the generator
+  end
 end
