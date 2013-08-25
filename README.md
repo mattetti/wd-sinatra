@@ -157,7 +157,7 @@ TODO see Weasel Diesel for now and the generated service example.
 
 ### app.rb
 
-The `config/app.rb` file is being required after the environment is set
+The `lib/app.rb` file is being required after the environment is set
 but before the models are loaded. This is the perfect place to load
 custom libraries and set your datastore.
 
