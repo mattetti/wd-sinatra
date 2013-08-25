@@ -202,22 +202,28 @@ These hooks have access to the entire request context, including the
 `service` being called. You can use the service `extra` option to set
 some custom settings that can then be used in this pre dispatch hook.
 
-In the default generated application, a body parser is provided to parse
-JSON requests when the HTTP verb is PUT, POST or DELETE. The json parser is set by default to use the `JSON` module but you might want to change it to use Yajl for instance.
-To do that, edit the `config/hooks.rb` file and change the following:
+In the default generated application, [rack-parser](https://github.com/achiu/rack-parser)
+is used to parse the body of json requests. By default, this uses the `JSON`
+to parse the body. This can be [overwritten](https://github.com/achiu/rack-parser#content-type-parsing)
+if you choose.
+
+Say you want to use [Oj](https://github.com/ohler55/oj) instead. To do
+that, edit the `config/sinatra_config.rb` file and change the following:
 
 ```ruby
-BodyParser.json_parser = JSON
+  use Rack::Parser
 ```
 
 to:
 
 ```ruby
-BodyParser.json_parser = Yajl::Parser
+  use Rack::Parser, :parsers => {
+    'application/json' => proc { |body| Oj.dump body }
+  }
 ```
 
-Of course, you'll need to require `Yajl` first and add it to your
-Gemfile if you want to use Bundler.
+Of course, you'll need to `require 'oj'` first and add it to your
+Gemfile if use Bundler.
 
 
 ## Update
