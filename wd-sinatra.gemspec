@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "wd_sinatra"
   gem.require_paths = ["lib"]
   gem.version       = WD::Sinatra::VERSION
+  gem.license       = 'MIT'
 
   gem.add_dependency('sinatra', ">= 1.3.3")
   gem.add_dependency('rake')
