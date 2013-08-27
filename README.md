@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/mattetti/wd-sinatra.png?branch=master)](https://next.travis-ci.org/mattetti/wd-sinatra)
 
-Weasel-Diesel Sinatra app gem, allowing you to generate/update sinatra apps using the Weasel Diesel DSL
+Weasel Diesel Sinatra app gem, allowing you to generate/update sinatra apps using the [Weasel-Diesel](https://github.com/mattetti/Weasel-Diesel) DSL.
 
 
 ## Installation
@@ -80,9 +80,11 @@ By default the generated app doesn't come with any ORMs, but if you want to use 
 
 ### Documentation generation
 
-    $ rake doc:services
+```bash
+    $ thor generate_doc <DESTINATION PATH>
+```
 
-To generate documentation for the APIs you created in the api folder.
+To generate documentation for the APIs you created in the api folder. The destination is optional, 'doc' is the default.
 
 ### Testing
 

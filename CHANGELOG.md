@@ -9,6 +9,8 @@
 ### New Features
 * Replace custom BodyParser with `rack-parser` middleware.
 * Use `rerun` gem for auto code reloading in development/test.
+* Wrap doc generation from WeaselDiesel::Cli. Documentation is
+generated via thor now, instead of rake.
 * Update doc generation to support optional namespaces.
 * Simpler, more compact documentation template.
   Removes `WD::Response::Element#to_html` and Bootstrap dependencies.

@@ -2,9 +2,15 @@
 $:.unshift File.expand_path("../lib", __FILE__)
 require 'bundler'
 require 'active_support/inflector'
+require 'weasel_diesel/cli'
 
 class Default < Thor
   include Thor::Actions
+
+  desc "generate_doc DESTINATION_PATH", "Generate HTML documentation"
+  def generate_doc(destination_path="doc")
+    WeaselDiesel::Cli.new.generate_doc('api', destination_path)
+  end
 
   desc "service VERB URI FILENAME", "Generate scaffolding for a new service"
   def service(verb, route, path)
@@ -23,15 +29,15 @@ class Default < Thor
         # OUTPUT
         service.response do |response|
           response.object do |obj|
-            obj.string :message, :doc => "The greeting message sent back. Defaults to 'World'."
-            obj.datetime :at, :doc => "The timestamp of when the message was dispatched."
+            obj.string :message, :doc => "The greeting message sent back. Defaults to 'World'"
+            obj.datetime :at, :doc => "The timestamp of when the message was dispatched"
           end
         end
 
         # DOCUMENTATION
         service.documentation do |doc|
           doc.overall "This service provides a simple hello world implementation example."
-          doc.example "curl -I 'http://localhost:9292/hello_world?name=Matt'"
+          doc.example "<code>curl -I 'http://localhost:9292/hello_world?name=Matt'</code>"
         end
 
         # ACTION/IMPLEMENTATION
