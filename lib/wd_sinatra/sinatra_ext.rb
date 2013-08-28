@@ -73,7 +73,7 @@ class WeaselDiesel
         @params = params_preprocessor_hook(@params) if self.respond_to?(:params_preprocessor_hook)
         @params = ParamsVerification.validate!(@params, service.defined_params)
         @params = params_postprocessor_hook(@params) if self.respond_to?(:params_postprocessor_hook)
-      rescue Exception => e
+      rescue ParamsVerification::ParamError => e
         LOGGER.error e.message
         LOGGER.error "passed params: #{app.params.inspect}"
         if self.respond_to?(:params_exception_handler)
