@@ -9,7 +9,7 @@ class Default < Thor
 
   desc "generate_doc DESTINATION_PATH", "Generate HTML documentation"
   def generate_doc(destination_path="doc")
-    WeaselDiesel::Cli.new.generate_doc('api', destination_path)
+    WeaselDiesel::CLI.new.generate_doc('api', destination_path)
   end
 
   desc "service VERB URI FILENAME", "Generate scaffolding for a new service"
