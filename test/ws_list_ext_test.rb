@@ -1,5 +1,5 @@
 require 'uri'
-require File.expand_path(File.join(File.dirname(__FILE__), 'test_helper'))
+require_relative 'test_helper'
 
 class WsListExtTest < MiniTest::Unit::TestCase
 
@@ -27,11 +27,11 @@ class WsListExtTest < MiniTest::Unit::TestCase
 
   # A snapshot of a working sorting of url array
   # The sorting doesn't have to actually be similar to that
-  # but this allows us to have a baseline to measure against in case 
+  # but this allows us to have a baseline to measure against in case
   # of tests.
   def expected_sorted_urls
     [
-      "/foo/bar/bazz", 
+      "/foo/bar/bazz",
       "/foo/bart",
       "/foo/bar/",
       "/foo/bar/:baz",
@@ -44,9 +44,9 @@ class WsListExtTest < MiniTest::Unit::TestCase
   def matched_route(url_query, reference_urls)
     sorted_regexps = reference_urls.map do |url|
       ignore = ""
-      pattern = url.gsub(/[^\?\%\\\/\:\*\w]/){ |c| 
+      pattern = url.gsub(/[^\?\%\\\/\:\*\w]/){ |c|
         ignore << escaped(c).join if c.match(/[\.@]/)
-        char_encoded(c) 
+        char_encoded(c)
       }
       pattern.gsub!(/((:\w+)|\*)/) do |match|
         if match == "*"
@@ -78,7 +78,7 @@ class WsListExtTest < MiniTest::Unit::TestCase
     assert_equal nil, matched_route("/fooz", base_urls), "shouldn't match /fooz"
     assert_equal nil, matched_route("/foo/bar/baz/baz", base_urls), "shouldn't match /foo/bar/baz/baz"
     assert_equal nil, matched_route("/foo/", base_urls), "shouldn't match /foo/"
-    assert_equal "/foo/([^/?#]+)/bazz", matched_route("/foo/123/bazz", base_urls), "Should match /foo/123/bazz" 
+    assert_equal "/foo/([^/?#]+)/bazz", matched_route("/foo/123/bazz", base_urls), "Should match /foo/123/bazz"
   end
 
   def test_route_matching_expectations

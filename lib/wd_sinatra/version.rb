@@ -1,5 +1,3 @@
-module WD
-  module Sinatra
-    VERSION = "2.0.0"
-  end
+module WDSinatra
+  VERSION = "2.0.0"
 end

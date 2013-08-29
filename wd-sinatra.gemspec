@@ -1,5 +1,7 @@
-# -*- encoding: utf-8 -*-
-require File.expand_path('../lib/wd_sinatra/version', __FILE__)
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'wd_sinatra/version'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Matt Aimonetti"]
@@ -13,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "wd_sinatra"
   gem.require_paths = ["lib"]
-  gem.version       = WD::Sinatra::VERSION
+  gem.version       = WDSinatra::VERSION
   gem.license       = 'MIT'
 
   gem.add_dependency('sinatra', ">= 1.3.3")
