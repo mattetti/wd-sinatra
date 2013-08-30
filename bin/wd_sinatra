@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require "rubygems"
 require "thor/group"
-require "active_support/inflector"
+require "inflecto"
 
 class WdSinatra < Thor::Group
   include Thor::Actions
@@ -25,7 +25,7 @@ class WdSinatra < Thor::Group
 
   protected
   def name_const
-    @name_const ||= name.gsub(/\W/, '_').squeeze('_').camelize
+    @name_const ||= Inflecto.camelize(name.gsub(/\W/, '_').squeeze('_'))
   end
 end
 
