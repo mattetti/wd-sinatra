@@ -4,7 +4,6 @@ require 'logger'
 require 'sinatra/base'
 require 'weasel_diesel'
 require 'wd_sinatra/ws_list_ext'
-require 'active_support/inflector'
 
 module WDSinatra
   module AppLoader

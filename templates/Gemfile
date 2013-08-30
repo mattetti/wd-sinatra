@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "wd_sinatra"
-gem "activesupport"
+gem "inflecto"
 # gem "wd_newrelic_rpm", :require => "newrelic_rpm"
 
 gem "backports", ">= 2.3.0", :platforms => "ruby_18"

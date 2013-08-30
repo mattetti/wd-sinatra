@@ -14,6 +14,7 @@ generated via thor now, instead of rake.
 * Update doc generation to support optional namespaces.
 * Simpler, more compact documentation template.
   Removes `WD::Response::Element#to_html` and Bootstrap dependencies.
+* Remove activesupport as a dependency, use inflecto for inflection support.
 
 ### Resolved issues
 * Fix conflict with current Sinatra's `template`.

@@ -27,10 +27,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rack-test')
   gem.add_dependency('thor')
   gem.add_dependency('minitest', "~> 4.7.4")
-
-  if RUBY_VERSION =~ /1.9.2/
-    gem.add_dependency('activesupport', "~> 3.2")
-  else
-    gem.add_dependency('activesupport') # used by the generator
-  end
+  gem.add_dependency('inflecto')
 end
