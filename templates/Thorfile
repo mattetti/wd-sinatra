@@ -1,7 +1,7 @@
 # encoding: utf-8
 $:.unshift File.expand_path("../lib", __FILE__)
 require 'bundler'
-require 'active_support/inflector'
+require 'inflecto'
 require 'weasel_diesel/cli'
 
 class Default < Thor
@@ -48,7 +48,7 @@ class Default < Thor
       RUBY
     end
 
-    class_name = path_without_suffix.classify.gsub(/::/, '') # strip modules; just want a unique class name for spec
+    class_name = Inflecto.classify(path_without_suffix).gsub(/::/, '') # strip modules; just want a unique class name for spec
     create_file(File.join("test", "integration", "#{path_without_suffix}_test.rb")) do
       <<-RUBY.gsub(/^\s{6}/, '')
       require 'test_helpers'
